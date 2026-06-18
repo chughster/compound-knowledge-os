@@ -83,7 +83,7 @@ The full chain - from a YouTube video to a tracked position with documented rati
 
 **What you need:**
 - [Obsidian](https://obsidian.md/download) - free (Mac, Windows, Linux, iOS, Android)
-- [Claude Cowork](https://claude.ai) - $20/month desktop app
+- [Claude Cowork](https://claude.ai/referral/YU4FcS6hQQ) - Claude Pro desktop app (referral link - we both get credit)
 - iCloud - free, for mobile sync
 
 **Setup:**
@@ -115,7 +115,7 @@ The full chain - from a YouTube video to a tracked position with documented rati
 | Tool | Cost | Role |
 |------|------|------|
 | [Obsidian](https://obsidian.md/download) | Free | Vault, editing, mobile, web clipping |
-| [Claude Cowork](https://claude.ai/download) (desktop app) | $20/month | AI reasoning, synthesis, file writing, scheduled tasks |
+| [Claude Cowork](https://claude.ai/referral/YU4FcS6hQQ) (desktop app) | Claude Pro | AI reasoning, synthesis, file writing, scheduled tasks |
 | iCloud | Free | Mobile sync |
 | Obsidian Web Clipper | Free | One-click web capture |
 | Obsidian Tasks plugin | Free | Live task dashboard inside Obsidian |
@@ -234,7 +234,7 @@ Yes. Obsidian runs on Windows, Mac, and Linux. Claude Cowork is available on bot
 
 **What does it actually cost?**
 
-Obsidian is free. Claude Cowork is $20/month (Claude Pro). Readwise is optional at $9.99/month. Web Clipper and all Obsidian plugins are free. Total minimum: $20/month.
+Obsidian is free. Claude Cowork runs on a Claude Pro subscription. Readwise is optional at $9.99/month. Web Clipper and all Obsidian plugins are free.
 
 **Is my data private?**
 
