@@ -1,29 +1,18 @@
 # First Run Setup
 
-You've installed Obsidian, opened the vault template, and configured your Claude project with the system prompt. Now you need to configure the system for your life.
+You've installed Obsidian, opened the vault template, and opened Claude Cowork. Now you need to configure the system for your life.
 
-Paste the prompt below into your Claude project. Claude will interview you and generate all your config files in one session.
-
----
-
-## Before You Start — Which Claude Are You Using?
-
-**Claude Cowork (desktop app) — recommended**
-Claude has direct file access to your vault. It will write your config files automatically during setup. Nothing to copy or paste manually.
-
-**Claude.ai Projects (web)**
-Claude can generate your config files but cannot write them to disk. At the end of setup, Claude will show you each file's content. Copy each one into Obsidian manually — create the file at the path shown, paste the content, save.
-
-Either way works. Cowork is faster.
+Paste the prompt below into your Claude project. Claude will interview you and write all your config files directly to your vault in one session.
 
 ---
 
-## Step 1 — Configure Your Claude Project
+## Step 1 — Configure Your Claude Cowork Project
 
-1. Go to [claude.ai](https://claude.ai) → **Projects** → **New Project**
-2. Open `_system/project-instructions.md` from this repo
-3. Copy the full contents and paste into the project's **Custom Instructions** field
-4. Save
+1. Open the **Claude Cowork desktop app**
+2. Create a **New Project**
+3. In Obsidian, navigate to `_system/project-instructions.md` and open it
+4. Select all, copy, and paste into the project's **Custom Instructions** field in Cowork
+5. Save — Claude now knows how your vault works
 
 ---
 
@@ -45,7 +34,7 @@ Here's what I need you to do:
 - `_system/index.md` — a skeleton catalog with my initial note structure
 - `Priorities/priorities.md` — my top priorities as tasks with tags and due dates
 
-**Step 3 — Create my folder structure.** Based on what I tell you, suggest which optional folders to activate and which to skip. Then create a brief `_system/log.md` entry marking the setup as complete.
+**Step 3 — Tailor my folder structure.** The vault folders already exist. Based on what I've told you, suggest which optional folders are relevant for me and which I can ignore. Then create a brief `_system/log.md` entry marking the setup as complete.
 
 ---
 

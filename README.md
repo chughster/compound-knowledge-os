@@ -1,20 +1,22 @@
 # Compound - A No Code Personal Knowledge OS
 
-I built this because I kept losing everything I read.
+I built this because every knowledge system I tried was designed for someone else.
 
-Not literally. The bookmarks were there. The highlights existed. But the insights? Gone by Friday. A framework from a book three months ago, directly relevant to a decision I'm making today - nowhere to be found. No system linking them.
+The good ones were built for developers - terminal first, config files, command line setup. I'm not a developer. I'm not going to live in a terminal to manage my reading notes. The no-code ones were rigid templates that worked fine until my goals changed or my information habits didn't fit the structure. None of them adapted to how I actually think, what I'm actually working on, or the specific way I consume information.
 
-Compound fixes that. It turns Obsidian into a knowledge OS that runs on Claude. Everything you read, watch, or learn gets processed, cross-linked, and filed. The more you put in, the smarter the system gets.
+I wanted something that started with me - my context, my quirks, my goals - and got smarter the more I used it. Set it up once. The more you use it, the better it gets.
+
+Compound is that system. It turns Obsidian into a knowledge OS that runs on Claude. Everything you read, watch, or learn gets processed, cross-linked, and filed. The more you put in, the smarter it gets.
 
 ---
 
 ## The Problem
 
-You consume more than ever. Articles, YouTube, newsletters, books, podcasts. Most of it is useful. Your brain just isn't built to retain and connect across all of it.
+You consume a lot. Articles, YouTube, newsletters, podcasts, books. Most of it is useful. Almost none of it sticks.
 
-The bigger issue: most knowledge tools make you do the connecting manually. Link this note to that note. Tag this. Update that. If you're busy, you skip it. The system dies.
+Not because you're not paying attention. Because there's no system connecting what you learned in January to the decision you're making in June. No thread from the podcast last week to the investment thesis you're building now. The insights exist somewhere. They just never show up when you need them.
 
-Goals have the same problem. You set them, you write them down, and then life happens. Without a system that ties your goals to what you're learning and surfaces relevant context at the right moment, they stay intentions.
+And when life gets busy, whatever system you had quietly dies. The notes pile up unprocessed. The folders get messy. You stop trusting it, so you stop using it.
 
 ---
 
