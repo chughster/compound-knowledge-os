@@ -1,0 +1,1559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Priorities — Compound</title>
+<style>
+:root {
+  --bg: #0f0f11;
+  --surface: #17171a;
+  --surface2: #202024;
+  --surface3: #2a2a2f;
+  --border: #2e2e35;
+  --border2: #3a3a42;
+  --text: #e4e4e8;
+  --text2: #a0a0b0;
+  --muted: #606070;
+  --accent: #7c6df0;
+  --accent-soft: rgba(124,109,240,0.14);
+  --green: #34d399;
+  --green-soft: rgba(52,211,153,0.1);
+  --amber: #fbbf24;
+  --amber-soft: rgba(251,191,36,0.1);
+  --red: #f87171;
+  --red-soft: rgba(248,113,113,0.1);
+  --blue: #60a5fa;
+  --blue-soft: rgba(96,165,250,0.1);
+  --radius: 8px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg); color: var(--text);
+  min-height: 100vh; font-size: 14px; line-height: 1.5;
+}
+
+/* ─── HEADER ─── */
+.header {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 24px; border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; background: var(--bg); z-index: 50;
+}
+.header-logo { font-size: 16px; font-weight: 700; letter-spacing: -0.3px; }
+.header-sprint {
+  background: var(--green-soft); color: var(--green);
+  font-size: 11px; font-weight: 600; padding: 2px 9px;
+  border-radius: 20px; border: 1px solid rgba(52,211,153,0.25);
+}
+.header-right { margin-left: auto; display: flex; gap: 8px; align-items: center; }
+.file-info { font-size: 12px; color: var(--muted); }
+.btn-primary {
+  background: var(--accent); color: white; border: none;
+  padding: 7px 14px; border-radius: var(--radius);
+  cursor: pointer; font-size: 13px; font-weight: 500; transition: opacity 0.15s;
+}
+.btn-primary:hover { opacity: 0.88; }
+.btn-secondary {
+  background: var(--surface2); color: var(--text2);
+  border: 1px solid var(--border2); padding: 7px 14px;
+  border-radius: var(--radius); cursor: pointer; font-size: 13px; transition: all 0.15s;
+}
+.btn-secondary:hover { color: var(--text); background: var(--surface3); }
+
+/* ─── TABS ─── */
+.tabs {
+  display: flex; gap: 2px; padding: 0 24px;
+  border-bottom: 1px solid var(--border); background: var(--bg);
+}
+.tab {
+  padding: 11px 14px; font-size: 13px; cursor: pointer;
+  color: var(--muted); border-bottom: 2px solid transparent;
+  transition: all 0.15s; white-space: nowrap;
+}
+.tab:hover { color: var(--text2); }
+.tab.active { color: var(--text); border-bottom-color: var(--accent); }
+.tab .badge {
+  display: inline-block; background: var(--surface2);
+  font-size: 10px; font-weight: 600; padding: 1px 6px;
+  border-radius: 10px; margin-left: 5px; color: var(--muted);
+}
+.tab.active .badge { background: var(--accent-soft); color: var(--accent); }
+
+/* ─── LAYOUT ─── */
+.main { padding: 20px 24px; max-width: 860px; }
+.section-group { margin-bottom: 28px; }
+.section-label {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.07em; color: var(--muted); margin-bottom: 8px; padding-left: 2px;
+}
+
+/* ─── TASK CARD ─── */
+.task-card {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 10px 12px; background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); margin-bottom: 5px;
+  transition: border-color 0.12s; position: relative;
+}
+.task-card:hover { border-color: var(--border2); }
+.task-card.done { opacity: 0.42; }
+.task-card.in-goal { border-left: 3px solid; }
+
+.checkbox {
+  width: 17px; height: 17px; border: 1.5px solid var(--border2);
+  border-radius: 4px; cursor: pointer; flex-shrink: 0; margin-top: 2px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.12s; user-select: none;
+}
+.checkbox:hover { border-color: var(--accent); background: var(--accent-soft); }
+.checkbox.checked { background: var(--accent); border-color: var(--accent); }
+.checkbox.checked::after {
+  content: ''; width: 9px; height: 5px;
+  border-left: 2px solid white; border-bottom: 2px solid white;
+  transform: rotate(-45deg) translateY(-1px); display: block;
+}
+
+.task-body { flex: 1; min-width: 0; }
+.task-text { font-size: 14px; color: var(--text); line-height: 1.5; word-break: break-word; }
+.task-text.striked { text-decoration: line-through; color: var(--muted); }
+
+.task-meta { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 5px; align-items: center; }
+
+.chip { font-size: 11px; padding: 1px 7px; border-radius: 4px; font-weight: 500; }
+.chip-sprint { background: var(--green-soft); color: var(--green); }
+.chip-someday { background: var(--accent-soft); color: var(--accent); }
+.chip-weekly { background: var(--blue-soft); color: var(--blue); }
+.chip-tag { background: var(--surface2); color: var(--text2); }
+
+/* ─── OBJECTIVE CHIP ─── */
+.obj-chip {
+  font-size: 11px; font-weight: 600; padding: 1px 7px;
+  border-radius: 4px; border: 1px solid; cursor: default; white-space: nowrap;
+  max-width: 160px; overflow: hidden; text-overflow: ellipsis;
+}
+
+.due-chip { font-size: 11px; font-weight: 500; padding: 1px 7px; border-radius: 4px; }
+.due-overdue { background: var(--red-soft); color: var(--red); }
+.due-today { background: var(--amber-soft); color: var(--amber); }
+.due-soon { background: var(--blue-soft); color: var(--blue); }
+.due-normal { color: var(--muted); font-size: 11px; }
+
+.task-actions {
+  display: flex; gap: 2px; opacity: 0;
+  transition: opacity 0.12s; flex-shrink: 0; margin-top: 1px;
+}
+.task-card:hover .task-actions { opacity: 1; }
+.icon-btn {
+  background: none; border: none; cursor: pointer; color: var(--muted);
+  padding: 4px 6px; border-radius: 5px; font-size: 13px;
+  line-height: 1; transition: all 0.1s; display: flex; align-items: center;
+}
+.icon-btn:hover { background: var(--surface2); color: var(--text); }
+.icon-btn.del:hover { color: var(--red); }
+
+/* ─── ADD TASK ─── */
+.add-row { display: flex; gap: 8px; margin-top: 8px; }
+.add-input {
+  flex: 1; background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 8px 12px; font-size: 13px;
+  color: var(--text); outline: none; transition: border-color 0.12s;
+}
+.add-input:focus { border-color: var(--accent); }
+.add-input::placeholder { color: var(--muted); }
+
+/* ─── LANDING ─── */
+.landing {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; min-height: 62vh; text-align: center;
+  padding: 40px; gap: 16px;
+}
+.landing-icon { font-size: 42px; }
+.landing h2 { font-size: 20px; font-weight: 700; }
+.landing p { color: var(--text2); font-size: 14px; max-width: 380px; line-height: 1.7; }
+.landing .hint { font-size: 12px; color: var(--muted); }
+
+/* ─── GOALS TAB ─── */
+.goal-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); margin-bottom: 10px; overflow: hidden;
+}
+.goal-card-header {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 16px; cursor: pointer; user-select: none;
+}
+.goal-card-header:hover { background: rgba(255,255,255,0.02); }
+.goal-stripe { width: 4px; height: 20px; border-radius: 2px; flex-shrink: 0; }
+.goal-num-badge {
+  font-size: 11px; font-weight: 700; width: 20px; height: 20px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; border: 1.5px solid;
+}
+.goal-title-text { font-size: 14px; font-weight: 700; flex: 1; }
+.goal-task-count { font-size: 11px; color: var(--muted); flex-shrink: 0; }
+.goal-chevron { font-size: 11px; color: var(--muted); transition: transform 0.2s; flex-shrink: 0; }
+.goal-chevron.open { transform: rotate(180deg); }
+.goal-actions { display: flex; gap: 2px; flex-shrink: 0; }
+
+.goal-body-section {
+  padding: 0 16px 14px 52px;
+  border-top: 1px solid var(--border);
+}
+.goal-desc {
+  font-size: 13px; color: var(--text2); line-height: 1.6;
+  white-space: pre-wrap; padding: 12px 0 10px;
+}
+
+/* ─── LINKED TASKS ─── */
+.linked-tasks-label {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.07em; color: var(--muted); margin: 8px 0 5px;
+}
+.linked-task-row {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 10px; border-radius: 6px; margin-bottom: 3px;
+  background: var(--surface2);
+}
+.linked-task-row.done-row { opacity: 0.45; }
+.linked-task-text { flex: 1; font-size: 13px; word-break: break-word; }
+.linked-task-text.striked { text-decoration: line-through; color: var(--muted); }
+.unlink-btn {
+  background: none; border: none; cursor: pointer; color: var(--muted);
+  font-size: 14px; padding: 2px 4px; border-radius: 3px;
+  transition: all 0.1s; line-height: 1; flex-shrink: 0;
+}
+.unlink-btn:hover { color: var(--red); background: var(--red-soft); }
+
+.link-row { margin-top: 8px; }
+.link-select {
+  width: 100%; background: var(--surface2); border: 1px solid var(--border2);
+  border-radius: 6px; padding: 7px 10px; font-size: 13px; color: var(--text2);
+  cursor: pointer; outline: none; transition: border-color 0.12s;
+}
+.link-select:focus { border-color: var(--accent); color: var(--text); }
+.link-select option { background: var(--surface2); }
+
+/* ─── MODAL ─── */
+.overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.65);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 200; backdrop-filter: blur(3px);
+}
+.modal {
+  background: var(--surface); border: 1px solid var(--border2);
+  border-radius: 12px; padding: 24px; width: 500px; max-width: 95vw;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+.modal-title { font-size: 15px; font-weight: 700; margin-bottom: 18px; }
+.form-row { margin-bottom: 13px; }
+.form-label {
+  font-size: 11px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.06em; color: var(--muted); display: block; margin-bottom: 5px;
+}
+.form-input, .form-select {
+  width: 100%; background: var(--surface2); border: 1px solid var(--border2);
+  border-radius: 6px; padding: 8px 10px; font-size: 14px; color: var(--text);
+  outline: none; transition: border-color 0.12s;
+}
+.form-input:focus, .form-select:focus { border-color: var(--accent); }
+.form-select option { background: var(--surface2); }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.modal-footer { display: flex; justify-content: flex-end; gap: 8px; margin-top: 20px; }
+
+/* ─── STATUS BAR ─── */
+.statusbar {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: var(--surface); border-top: 1px solid var(--border);
+  padding: 6px 24px; font-size: 11px; color: var(--muted);
+  display: flex; gap: 20px; z-index: 40;
+}
+.statusbar .saved { color: var(--green); }
+.statusbar .unsaved { color: var(--amber); }
+
+.empty { text-align: center; padding: 32px; color: var(--muted); font-size: 13px; }
+.done-date { font-size: 11px; color: var(--muted); }
+
+/* ─── PRIORITY ─── */
+/* P1 dot — subtle, just a click target */
+.priority-pip {
+  width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+  margin-top: 6px; cursor: pointer; transition: transform 0.15s;
+  display: inline-block; background: var(--border2);
+}
+.priority-pip:hover { transform: scale(1.6); }
+
+/* P0 / P2 text badges */
+.priority-badge {
+  font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px;
+  cursor: pointer; flex-shrink: 0; letter-spacing: 0.04em;
+  user-select: none; transition: opacity 0.12s; white-space: nowrap;
+}
+.priority-badge:hover { opacity: 0.7; }
+.priority-badge.p0 {
+  background: rgba(248,113,113,0.15); color: #f87171;
+  border: 1px solid rgba(248,113,113,0.35);
+}
+.priority-badge.p2 {
+  background: rgba(96,165,250,0.08); color: #60a5fa;
+  border: 1px solid rgba(96,165,250,0.2); opacity: 0.75;
+}
+
+/* P0 card tint */
+.task-card.prio-p0 { background: rgba(248,113,113,0.04); }
+
+/* Priority tier dividers */
+.priority-tier-header {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.08em; padding: 12px 2px 5px;
+  display: flex; align-items: center; gap: 6px;
+}
+.priority-tier-header:first-child { padding-top: 0; }
+.priority-tier-header::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+}
+.priority-tier-header.p0 { color: #f87171; }
+.priority-tier-header.p0::before { background: #f87171; }
+.priority-tier-header.p1 { color: var(--muted); }
+.priority-tier-header.p1::before { background: var(--border2); }
+.priority-tier-header.p2 { color: #60a5fa; opacity: 0.65; }
+.priority-tier-header.p2::before { background: #60a5fa; }
+
+/* ─── DRAG ─── */
+.task-card[draggable="true"] { cursor: default; user-select: none; }
+.task-card[draggable="true"]:hover { cursor: grab; }
+
+/* ─── INLINE DATE INPUT ─── */
+.due-chip-edit {
+  font-size: 11px; font-weight: 500; padding: 1px 7px; border-radius: 4px;
+  background: var(--surface2); border: 1px solid var(--accent);
+  color: var(--text); outline: none; cursor: pointer;
+  font-family: inherit;
+}
+
+/* ─── PROGRESS BAR ─── */
+.goal-progress-area {
+  display: flex; flex-direction: column; align-items: flex-end;
+  gap: 4px; flex-shrink: 0; min-width: 72px;
+}
+.goal-progress-wrap {
+  width: 72px; height: 3px; background: var(--surface3);
+  border-radius: 2px; overflow: hidden;
+}
+.goal-progress-bar { height: 100%; border-radius: 2px; transition: width 0.4s ease; }
+
+/* ─── SPRINT META CARD ─── */
+.sprint-meta-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 16px 18px; margin-bottom: 20px;
+}
+.sprint-meta-top {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+}
+.sprint-meta-name { font-size: 15px; font-weight: 700; }
+.sprint-meta-deadline {
+  font-size: 12px; font-weight: 600; padding: 2px 9px;
+  border-radius: 20px; white-space: nowrap; flex-shrink: 0;
+}
+.sprint-meta-deadline.ok { background: var(--green-soft); color: var(--green); border: 1px solid rgba(52,211,153,0.25); }
+.sprint-meta-deadline.warn { background: var(--amber-soft); color: var(--amber); border: 1px solid rgba(251,191,36,0.25); }
+.sprint-meta-deadline.late { background: var(--red-soft); color: var(--red); border: 1px solid rgba(248,113,113,0.25); }
+.sprint-meta-goal { font-size: 13px; color: var(--text2); margin-bottom: 4px; }
+.sprint-meta-path { font-size: 12px; color: var(--muted); font-style: italic; }
+.sprint-obj-row {
+  display: flex; flex-wrap: wrap; gap: 6px; align-items: center;
+  margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border);
+}
+.sprint-obj-label { font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.07em; color: var(--muted); margin-right: 4px; }
+.sprint-obj-chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 12px; font-weight: 600; padding: 3px 10px;
+  border-radius: 20px; border: 1px solid; cursor: pointer;
+  transition: opacity 0.12s;
+}
+.sprint-obj-chip:hover { opacity: 0.75; }
+.sprint-obj-chip-count {
+  font-size: 11px; font-weight: 700; opacity: 0.75;
+}
+.sprint-unlinked-note { font-size: 12px; color: var(--muted); margin-left: 4px; }
+
+/* Sort bar */
+.sort-bar {
+  display: flex; align-items: center; justify-content: flex-end; gap: 6px;
+  padding: 8px 16px 4px;
+}
+.sort-bar-label { font-size: 11px; color: var(--muted); margin-right: 2px; }
+.sort-btn {
+  font-size: 11px; font-weight: 500;
+  padding: 3px 10px; border-radius: 20px; border: 1px solid var(--border);
+  background: transparent; color: var(--muted); cursor: pointer;
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
+}
+.sort-btn:hover { color: var(--text); border-color: var(--muted); }
+.sort-btn.active {
+  background: var(--accent); color: #fff; border-color: var(--accent);
+}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+// ═══════════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════════
+const state = {
+  dirHandle: null,
+  fileHandle: null,
+  rawLines: [],
+  tasks: [],          // [{id, lineIdx, done, displayText, tags, dueDate, doneDate, section, objIdx}]
+  goals: [],          // [{title, body}]
+  ltSection: null,    // {startLine, endLine, introLines}
+  taskLineSet: new Set(),
+  activeTab: 'sprint',
+  openGoals: new Set(), // which goal cards are expanded
+  sortMode: 'date', // 'priority' | 'date'
+  storedHandle: null, // set when IndexedDB has a handle but perm needs re-grant
+  dirty: false,
+  savedAt: null,
+  modal: null,
+  toast: null,
+  sprint: null,       // {name, goal, deadline, fastestPath} parsed from sprint-context.md
+};
+
+const TODAY = new Date().toISOString().split('T')[0];
+
+// ─── Objective colour palette ───
+const OBJ_COLORS = [
+  { bg: 'rgba(251,191,36,0.13)',  color: '#fbbf24', border: 'rgba(251,191,36,0.35)'  }, // amber
+  { bg: 'rgba(167,139,250,0.13)', color: '#a78bfa', border: 'rgba(167,139,250,0.35)' }, // violet
+  { bg: 'rgba(96,165,250,0.13)',  color: '#60a5fa', border: 'rgba(96,165,250,0.35)'  }, // blue
+  { bg: 'rgba(52,211,153,0.13)',  color: '#34d399', border: 'rgba(52,211,153,0.35)'  }, // green
+  { bg: 'rgba(251,113,133,0.13)', color: '#fb7185', border: 'rgba(251,113,133,0.35)' }, // rose
+  { bg: 'rgba(251,146,60,0.13)',  color: '#fb923c', border: 'rgba(251,146,60,0.35)'  }, // orange
+];
+function getObjColor(idx) {
+  if (idx == null || idx < 0) return null;
+  return OBJ_COLORS[idx % OBJ_COLORS.length];
+}
+
+// ═══════════════════════════════════════════════
+//  PARSER
+// ═══════════════════════════════════════════════
+function isTaskLine(line) {
+  return /^- \[[ xX]\]/.test(line.trim());
+}
+
+function parseTaskLine(line, lineIdx, section) {
+  const trimmed = line.trim();
+  const done = /^- \[[xX]\]/.test(trimmed);
+  let rest = trimmed.replace(/^- \[[ xX]\] /, '');
+
+  // Extract done date ✅
+  let doneDate = null;
+  const doneMatch = rest.match(/✅\s*(\d{4}-\d{2}-\d{2})/);
+  if (doneMatch) { doneDate = doneMatch[1]; rest = rest.replace(/✅\s*\d{4}-\d{2}-\d{2}/, '').trim(); }
+
+  // Extract due date 📅
+  let dueDate = null;
+  const dueMatch = rest.match(/📅\s*(\d{4}-\d{2}-\d{2})/);
+  if (dueMatch) { dueDate = dueMatch[1]; rest = rest.replace(/📅\s*\d{4}-\d{2}-\d{2}/, '').trim(); }
+
+  // Extract objective link 🎯 N (1-indexed in file → 0-indexed in JS)
+  let objIdx = null;
+  const objMatch = rest.match(/🎯\s*(\d+)/);
+  if (objMatch) { objIdx = parseInt(objMatch[1]) - 1; rest = rest.replace(/🎯\s*\d+/, '').trim(); }
+
+  // Extract priority (#p0 / #p1 / #p2) — parsed separately, not in tags
+  let priority = null;
+  const prioM = rest.match(/#(p[012])\b/i);
+  if (prioM) { priority = parseInt(prioM[1][1]); rest = rest.replace(/#p[012]\b/gi, '').trim(); }
+
+  // Extract tags (excluding priority)
+  const tags = [...rest.matchAll(/#(\w+)/g)].map(m => m[1])
+    .filter(t => !/^p[012]$/i.test(t));
+  const displayText = rest.replace(/#\w+/g, '').replace(/\s+/g, ' ').trim();
+
+  return { id: lineIdx, lineIdx, done, displayText, tags, dueDate, doneDate, section, objIdx, priority };
+}
+
+function serializeTask(task) {
+  const check = task.done ? 'x' : ' ';
+  let parts = [task.displayText];
+  if (task.objIdx != null && task.objIdx >= 0) parts.push('🎯 ' + (task.objIdx + 1));
+  for (const tag of task.tags) parts.push('#' + tag);
+  // Priority: only write #p0 or #p2; P1 is default (implicit, no tag)
+  if (task.priority === 0) parts.push('#p0');
+  if (task.priority === 2) parts.push('#p2');
+  if (task.dueDate) parts.push('📅 ' + task.dueDate);
+  if (task.done) parts.push('✅ ' + (task.doneDate || TODAY));
+  return `- [${check}] ${parts.join(' ')}`;
+}
+
+function serializeGoalsSection(goals, ltSection) {
+  const out = ['## Long-Term Objectives'];
+  for (const l of ltSection.introLines) out.push(l);
+  for (let i = 0; i < goals.length; i++) {
+    out.push(`### ${i + 1}. ${goals[i].title}`);
+    const body = goals[i].body.trim();
+    if (body) for (const l of body.split('\n')) out.push(l);
+    out.push('');
+  }
+  while (out.length && out[out.length - 1] === '') out.pop();
+  return out;
+}
+
+function parseFile(content) {
+  const lines = content.split('\n');
+  const tasks = [];
+  const goals = [];
+  const ltSection = { startLine: -1, endLine: -1, introLines: [] };
+  const taskLineSet = new Set();
+
+  let currentSection = '';
+  let currentGoal = null;
+  let fmCount = 0;
+  let frontmatterDone = false;
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+
+    if (!frontmatterDone) {
+      if (line.trim() === '---') { fmCount++; if (fmCount === 2) frontmatterDone = true; }
+      continue;
+    }
+
+    if (line.startsWith('## ')) {
+      const newSection = line.replace(/^## /, '').trim();
+      if (currentSection === 'Long-Term Objectives' && ltSection.startLine >= 0) {
+        ltSection.endLine = i - 1;
+        while (ltSection.endLine > ltSection.startLine && lines[ltSection.endLine].trim() === '') ltSection.endLine--;
+      }
+      if (currentGoal) { goals.push(currentGoal); currentGoal = null; }
+      currentSection = newSection;
+      if (newSection === 'Long-Term Objectives') ltSection.startLine = i;
+      continue;
+    }
+
+    if (currentSection === 'Long-Term Objectives') {
+      if (line.startsWith('### ')) {
+        if (currentGoal) goals.push(currentGoal);
+        const m = line.match(/^### \d+\.\s+(.+)/);
+        currentGoal = { title: m ? m[1] : line.replace(/^### /, ''), body: '' };
+      } else if (!currentGoal) {
+        ltSection.introLines.push(line);
+      } else {
+        currentGoal.body += (currentGoal.body ? '\n' : '') + line;
+      }
+      continue;
+    }
+
+    if (isTaskLine(line)) {
+      const task = parseTaskLine(line, i, currentSection);
+      tasks.push(task);
+      taskLineSet.add(i);
+    }
+  }
+
+  if (currentSection === 'Long-Term Objectives' && ltSection.startLine >= 0 && ltSection.endLine < 0) {
+    ltSection.endLine = lines.length - 1;
+    while (ltSection.endLine > ltSection.startLine && lines[ltSection.endLine].trim() === '') ltSection.endLine--;
+  }
+  if (currentGoal) goals.push(currentGoal);
+
+  return { lines, tasks, goals, ltSection, taskLineSet };
+}
+
+function buildContent(rawLines, tasks, taskLineSet, goals, ltSection) {
+  const taskMap = {};
+  for (const t of tasks) taskMap[t.lineIdx] = t;
+
+  const out = [];
+  let i = 0;
+  while (i < rawLines.length) {
+    if (ltSection && ltSection.startLine >= 0 && i === ltSection.startLine) {
+      for (const l of serializeGoalsSection(goals, ltSection)) out.push(l);
+      i = ltSection.endLine + 1;
+      continue;
+    }
+    out.push(taskMap[i] ? serializeTask(taskMap[i]) : rawLines[i]);
+    i++;
+  }
+  return out.join('\n');
+}
+
+// ═══════════════════════════════════════════════
+//  SPRINT CONTEXT PARSER
+// ═══════════════════════════════════════════════
+function parseSprintContext(content) {
+  const lines = content.split('\n');
+  const sprint = { name: '', goal: '', deadline: '', fastestPath: '' };
+  let inActive = false;
+  for (const line of lines) {
+    if (/^## Active Sprint/.test(line)) { inActive = true; continue; }
+    if (inActive && /^## /.test(line)) break;
+    if (!inActive) continue;
+    // Bold standalone line = sprint name
+    const nameM = line.match(/^\*\*([^*]+)\*\*\s*$/);
+    if (nameM && !sprint.name) { sprint.name = nameM[1]; continue; }
+    const goalM = line.match(/\*\*Goal[^:]*:\*\*\s*(.+)/);
+    if (goalM) { sprint.goal = goalM[1]; continue; }
+    const dlM = line.match(/\*\*Deadline[^:]*:\*\*\s*(.+)/);
+    if (dlM) { sprint.deadline = dlM[1].trim(); continue; }
+    const fpM = line.match(/\*\*Fastest path[^:]*:\*\*\s*(.+)/i);
+    if (fpM) { sprint.fastestPath = fpM[1]; continue; }
+  }
+  return sprint;
+}
+
+async function loadSprintContext() {
+  try {
+    let fh = null;
+    try { const d = await state.dirHandle.getDirectoryHandle('Priorities'); fh = await d.getFileHandle('sprint-context.md'); } catch {}
+    if (!fh) try { fh = await state.dirHandle.getFileHandle('sprint-context.md'); } catch {}
+    if (!fh) { state.sprint = null; return; }
+    const file = await fh.getFile();
+    state.sprint = parseSprintContext(await file.text());
+  } catch { state.sprint = null; }
+}
+
+// ═══════════════════════════════════════════════
+//  INDEXEDDB — persist directory handle
+// ═══════════════════════════════════════════════
+const DB_NAME = 'priorities-app', DB_STORE = 'handles', DB_KEY = 'vault-dir';
+
+function openDB() {
+  return new Promise((res, rej) => {
+    const req = indexedDB.open(DB_NAME, 1);
+    req.onupgradeneeded = e => e.target.result.createObjectStore(DB_STORE);
+    req.onsuccess = e => res(e.target.result);
+    req.onerror   = e => rej(e.target.error);
+  });
+}
+async function saveHandle(h) {
+  const db = await openDB();
+  return new Promise((res, rej) => {
+    const tx = db.transaction(DB_STORE, 'readwrite');
+    tx.objectStore(DB_STORE).put(h, DB_KEY);
+    tx.oncomplete = res; tx.onerror = e => rej(e.target.error);
+  });
+}
+async function loadHandle() {
+  const db = await openDB();
+  return new Promise((res, rej) => {
+    const tx = db.transaction(DB_STORE, 'readonly');
+    const req = tx.objectStore(DB_STORE).get(DB_KEY);
+    req.onsuccess = e => res(e.target.result || null);
+    req.onerror   = e => rej(e.target.error);
+  });
+}
+async function resolveFileHandle(dir) {
+  try { const d = await dir.getDirectoryHandle('Priorities'); return await d.getFileHandle('priorities.md'); } catch {}
+  try { return await dir.getFileHandle('priorities.md'); } catch {}
+  return null;
+}
+
+// ═══════════════════════════════════════════════
+//  FILE OPS
+// ═══════════════════════════════════════════════
+async function openVault() {
+  try {
+    // startIn: stored handle opens picker right at the vault folder (user just clicks Select)
+    const opts = { mode: 'readwrite' };
+    if (state.storedHandle) opts.startIn = state.storedHandle;
+    const dir = await window.showDirectoryPicker(opts);
+    const fh = await resolveFileHandle(dir);
+    if (!fh) { alert('Could not find Priorities/priorities.md.'); return; }
+    state.dirHandle = dir; state.fileHandle = fh;
+    await saveHandle(dir);
+    await loadFile();
+  } catch (e) { if (e.name !== 'AbortError') console.error(e); }
+}
+
+async function tryRestoreVault() {
+  try {
+    const dir = await loadHandle();
+    if (!dir) { render(); return; }
+    // If permission is already active (same session), load silently
+    const perm = await dir.queryPermission({ mode: 'readwrite' });
+    if (perm === 'granted') {
+      state.dirHandle = dir;
+      const fh = await resolveFileHandle(dir);
+      if (!fh) { render(); return; }
+      state.fileHandle = fh;
+      await loadFile();
+      return;
+    }
+    // Need re-grant — show button; button click is a guaranteed user gesture
+    state.storedHandle = dir;
+    render();
+  } catch { render(); }
+}
+
+window.reconnectVault = async function() {
+  const dir = state.storedHandle;
+  if (!dir) { openVault(); return; }
+  try {
+    const p = await dir.requestPermission({ mode: 'readwrite' });
+    if (p === 'granted') {
+      state.dirHandle = dir; state.storedHandle = null;
+      const fh = await resolveFileHandle(dir);
+      if (!fh) { openVault(); return; } // stale handle — fall back to picker
+      state.fileHandle = fh;
+      await saveHandle(dir);
+      await loadFile();
+    } else {
+      // User denied or handle stale — fall back to picker
+      openVault();
+    }
+  } catch { openVault(); }
+};
+
+async function loadFile() {
+  if (!state.fileHandle) return;
+  const file = await state.fileHandle.getFile();
+  const { lines, tasks, goals, ltSection, taskLineSet } = parseFile(await file.text());
+  state.rawLines = lines; state.tasks = tasks; state.goals = goals;
+  state.ltSection = ltSection; state.taskLineSet = taskLineSet;
+  state.dirty = false; state.savedAt = new Date();
+  if (state.dirHandle) await loadSprintContext();
+  render();
+}
+
+async function saveFile() {
+  if (!state.fileHandle) return;
+  const writable = await state.fileHandle.createWritable();
+  await writable.write(buildContent(state.rawLines, state.tasks, state.taskLineSet, state.goals, state.ltSection));
+  await writable.close();
+  state.dirty = false; state.savedAt = new Date();
+  showToast('Saved ✓'); render();
+}
+
+// ═══════════════════════════════════════════════
+//  TASK OPS
+// ═══════════════════════════════════════════════
+function toggleTask(taskId) {
+  const t = state.tasks.find(t => t.id === taskId); if (!t) return;
+  t.done = !t.done;
+  if (t.done && !t.doneDate) t.doneDate = TODAY;
+  if (!t.done) t.doneDate = null;
+  state.dirty = true; saveFile();
+}
+
+function deleteTask(taskId) {
+  const t = state.tasks.find(t => t.id === taskId); if (!t) return;
+  if (!confirm(`Delete: "${t.displayText}"?`)) return;
+  state.rawLines[t.lineIdx] = '';
+  state.tasks = state.tasks.filter(x => x.id !== taskId);
+  state.taskLineSet.delete(t.lineIdx);
+  state.dirty = true; saveFile();
+}
+
+function addTask(section, text, tags, dueDate, objIdx, priority) {
+  if (!text.trim()) return;
+  const t = {
+    id: state.rawLines.length, lineIdx: state.rawLines.length,
+    done: false, displayText: text.trim(),
+    tags: tags.filter(Boolean), dueDate: dueDate || null, doneDate: null,
+    section, objIdx: (objIdx != null && objIdx >= 0) ? objIdx : null,
+    priority: (priority != null) ? priority : null, // null = P1 default
+  };
+  state.rawLines.push(serializeTask(t));
+  state.taskLineSet.add(t.lineIdx);
+  state.tasks.push(t);
+  state.dirty = true; saveFile();
+}
+
+function updateTask(taskId, text, tags, dueDate, objIdx, priority) {
+  const t = state.tasks.find(t => t.id === taskId); if (!t) return;
+  t.displayText = text.trim();
+  t.tags = tags.filter(Boolean);
+  t.dueDate = dueDate || null;
+  t.objIdx = (objIdx != null && objIdx >= 0) ? objIdx : null;
+  t.priority = (priority != null) ? priority : null;
+  state.dirty = true; saveFile();
+}
+
+function linkTaskToGoal(taskId, objIdx) {
+  const t = state.tasks.find(t => t.id === taskId); if (!t) return;
+  t.objIdx = objIdx >= 0 ? objIdx : null;
+  state.dirty = true; saveFile();
+}
+
+function unlinkTask(taskId) {
+  const t = state.tasks.find(t => t.id === taskId); if (!t) return;
+  t.objIdx = null;
+  state.dirty = true; saveFile();
+}
+
+// ─── SORT HELPERS ───
+// sortMode: 'priority' (default) = P0→P1→P2, within tier by due date
+//           'date'               = flat chronological, no grouping
+function byDate(a, b) {
+  return (a.dueDate || '9999').localeCompare(b.dueDate || '9999');
+}
+
+function taskSortComparator(a, b) {
+  if (state.sortMode === 'date') return byDate(a, b);
+  const pa = priorityTier(a), pb = priorityTier(b);
+  if (pa !== pb) return pa - pb;
+  return byDate(a, b);
+}
+
+window.setSortMode = function(mode) {
+  state.sortMode = mode;
+  render();
+};
+
+function renderSortBar() {
+  const modes = [
+    { key: 'date',     label: 'Due date' },
+    { key: 'priority', label: 'Priority' },
+  ];
+  const btns = modes.map(m =>
+    `<button class="sort-btn${state.sortMode === m.key ? ' active' : ''}" onclick="setSortMode('${m.key}')">${m.label}</button>`
+  ).join('');
+  return `<div class="sort-bar"><span class="sort-bar-label">Sort</span>${btns}</div>`;
+}
+
+// ─── CALENDAR ───
+function generateICS(task) {
+  const uid = `task-${task.id}-${Date.now()}@priorities`;
+  const now = new Date().toISOString().replace(/[-:]/g,'').split('.')[0] + 'Z';
+
+  // Due date as all-day event; end = next day
+  const [y, m, d] = task.dueDate.split('-');
+  const dtStart = `${y}${m}${d}`;
+  const nextDay = new Date(+y, +m - 1, +d + 1);
+  const dtEnd = `${nextDay.getFullYear()}${String(nextDay.getMonth()+1).padStart(2,'0')}${String(nextDay.getDate()).padStart(2,'0')}`;
+
+  const goal = task.objIdx != null ? state.goals[task.objIdx] : null;
+  const desc = [
+    `Section: ${task.section}`,
+    goal ? `Objective: ${goal.title}` : '',
+    task.tags.length ? `Tags: ${task.tags.map(t=>'#'+t).join(' ')}` : '',
+  ].filter(Boolean).join('\\n');
+
+  return [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//Priorities//Task Manager//EN',
+    'CALSCALE:GREGORIAN',
+    'BEGIN:VEVENT',
+    `UID:${uid}`,
+    `DTSTAMP:${now}`,
+    `DTSTART;VALUE=DATE:${dtStart}`,
+    `DTEND;VALUE=DATE:${dtEnd}`,
+    `SUMMARY:${task.displayText.replace(/,/g,'\\,')}`,
+    `DESCRIPTION:${desc}`,
+    'END:VEVENT',
+    'END:VCALENDAR',
+  ].join('\r\n');
+}
+
+function addToCalendar(taskId) {
+  const task = state.tasks.find(t => t.id === taskId);
+  if (!task || !task.dueDate) return;
+  const ics = generateICS(task);
+  const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${task.displayText.slice(0, 40).replace(/[^a-zA-Z0-9 ]/g,'').trim().replace(/ /g,'-')}.ics`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ─── GOAL CRUD ───
+function addGoal(title, body) {
+  if (!title.trim()) return;
+  state.goals.push({ title: title.trim(), body: body.trim() });
+  state.dirty = true; saveFile();
+}
+function editGoal(idx, title, body) {
+  if (!state.goals[idx]) return;
+  state.goals[idx].title = title.trim(); state.goals[idx].body = body.trim();
+  state.dirty = true; saveFile();
+}
+function deleteGoal(idx) {
+  const g = state.goals[idx];
+  if (!g || !confirm(`Delete objective: "${g.title}"?`)) return;
+  // Unlink tasks pointing to this goal; shift higher indices
+  for (const t of state.tasks) {
+    if (t.objIdx === idx) t.objIdx = null;
+    else if (t.objIdx != null && t.objIdx > idx) t.objIdx--;
+  }
+  state.goals.splice(idx, 1);
+  state.dirty = true; saveFile();
+}
+
+
+// ═══════════════════════════════════════════════
+//  INLINE EDITS (date chip click, priority cycle)
+// ═══════════════════════════════════════════════
+window.quickSetDate = function(e, taskId) {
+  e.stopPropagation();
+  const t = state.tasks.find(t => t.id === taskId); if (!t) return;
+  // Create a hidden date input, position near click, open it
+  const inp = document.createElement('input');
+  inp.type = 'date';
+  inp.value = t.dueDate || '';
+  inp.style.cssText = `position:fixed;opacity:0;pointer-events:none;top:${e.clientY}px;left:${e.clientX}px`;
+  document.body.appendChild(inp);
+  const apply = () => {
+    const val = inp.value;
+    t.dueDate = val || null;
+    state.dirty = true; saveFile();
+    inp.remove();
+  };
+  inp.addEventListener('change', apply);
+  inp.addEventListener('blur', () => { inp.remove(); });
+  inp.showPicker ? inp.showPicker() : inp.click();
+};
+
+window.cyclePriority = function(e, taskId) {
+  e.stopPropagation();
+  const t = state.tasks.find(t => t.id === taskId); if (!t) return;
+  // Cycle: P1(null) → P0 → P2 → P1(null)
+  if (t.priority === 0) t.priority = 2;
+  else if (t.priority === 2) t.priority = null;
+  else t.priority = 0;
+  state.dirty = true; saveFile();
+};
+
+// ═══════════════════════════════════════════════
+//  HELPERS
+// ═══════════════════════════════════════════════
+function getDueStatus(d) {
+  if (!d) return null;
+  if (d < TODAY) return 'overdue';
+  if (d === TODAY) return 'today';
+  if ((new Date(d) - new Date(TODAY)) / 86400000 <= 3) return 'soon';
+  return 'normal';
+}
+function fmtDate(d) {
+  if (!d) return '';
+  const [,m,day] = d.split('-');
+  return `${'JanFebMarAprMayJunJulAugSepOctNovDec'.slice((+m-1)*3,(+m-1)*3+3)} ${+day}`;
+}
+function escHtml(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function showToast(msg) {
+  state.toast = msg; render();
+  setTimeout(() => { state.toast = null; render(); }, 2000);
+}
+
+// ═══════════════════════════════════════════════
+//  RENDER
+// ═══════════════════════════════════════════════
+const root = () => document.getElementById('root');
+
+function renderDueChip(taskId, dueDate, done) {
+  const click = done ? '' : ` style="cursor:pointer" onclick="quickSetDate(event,${taskId})" title="Click to change date"`;
+  if (!dueDate) {
+    if (done) return '';
+    return `<span class="due-normal"${click} style="cursor:pointer;color:var(--muted)" title="Set due date">+ date</span>`;
+  }
+  const s = getDueStatus(dueDate);
+  if (s === 'overdue') return `<span class="due-chip due-overdue"${click}>Overdue · ${fmtDate(dueDate)}</span>`;
+  if (s === 'today')   return `<span class="due-chip due-today"${click}>Due today</span>`;
+  if (s === 'soon')    return `<span class="due-chip due-soon"${click}>${fmtDate(dueDate)}</span>`;
+  return `<span class="due-normal"${click}>${fmtDate(dueDate)}</span>`;
+}
+
+function renderPriorityPip(task) {
+  const p = task.priority;
+  if (p === 0) return `<span class="priority-badge p0" onclick="cyclePriority(event,${task.id})" title="P0 – Critical · click → P2">P0</span>`;
+  if (p === 2) return `<span class="priority-badge p2" onclick="cyclePriority(event,${task.id})" title="P2 – Low · click → P1">P2</span>`;
+  // P1 / null — subtle dot, shows on hover
+  return `<span class="priority-pip" onclick="cyclePriority(event,${task.id})" title="P1 – Normal · click → P0"></span>`;
+}
+
+function renderTagChips(tags) {
+  return tags.map(tag => {
+    if (tag === 'sprint') return '';   // routing tag — don't surface in UI
+    if (tag === 'someday') return '';  // routing tag — don't surface in UI
+    if (tag === 'weekly') return `<span class="chip chip-weekly">↻ weekly</span>`;
+    return `<span class="chip chip-tag">#${tag}</span>`;
+  }).join('');
+}
+
+function renderObjChip(task, compact) {
+  if (task.objIdx == null || task.objIdx < 0) return '';
+  const c = getObjColor(task.objIdx);
+  const goal = state.goals[task.objIdx];
+  if (!c || !goal) return '';
+  const label = compact ? `🎯 ${task.objIdx + 1}` : `🎯 ${escHtml(goal.title.length > 22 ? goal.title.slice(0,20)+'…' : goal.title)}`;
+  return `<span class="obj-chip" style="background:${c.bg};color:${c.color};border-color:${c.border};cursor:pointer" title="Go to objective: ${escHtml(goal.title)}" onclick="jumpToGoal(${task.objIdx})">${label}</span>`;
+}
+
+function renderTaskCard(task, opts = {}) {
+  const isDone = task.done;
+  const c = task.objIdx != null ? getObjColor(task.objIdx) : null;
+  const borderStyle = c ? `style="border-left:3px solid ${c.color}"` : '';
+  const prioClass = (!isDone && task.priority === 0) ? ' prio-p0' : '';
+  return `
+  <div class="task-card${isDone ? ' done' : ''}${prioClass}" data-id="${task.id}" ${borderStyle}>
+    ${!isDone ? renderPriorityPip(task) : ''}
+    <div class="checkbox${isDone ? ' checked' : ''}" onclick="toggleTask(${task.id})"></div>
+    <div class="task-body">
+      <div class="task-text${isDone ? ' striked' : ''}">${escHtml(task.displayText)}</div>
+      <div class="task-meta">
+        ${renderObjChip(task, false)}
+        ${renderDueChip(task.id, task.dueDate, isDone)}
+        ${renderTagChips(task.tags)}
+        ${isDone && task.doneDate ? `<span class="done-date">Done ${fmtDate(task.doneDate)}</span>` : ''}
+      </div>
+    </div>
+    <div class="task-actions">
+      ${task.dueDate && !task.done ? `<button class="icon-btn" onclick="addToCalendar(${task.id})" title="Add to Calendar (downloads .ics)">📆</button>` : ''}
+      <button class="icon-btn" onclick="openEdit(${task.id})" title="Edit">✏️</button>
+      <button class="icon-btn del" onclick="deleteTask(${task.id})" title="Delete">🗑</button>
+    </div>
+  </div>`;
+}
+
+function renderAddRow(section, defaultObjIdx) {
+  const objParam = defaultObjIdx != null ? `, ${defaultObjIdx}` : '';
+  return `
+  <div class="add-row">
+    <input class="add-input" id="add-${escHtml(section)}" placeholder="Add task… (Enter to save)"
+      onkeydown="handleAddKey(event,'${escHtml(section)}'${objParam})" />
+    <button class="btn-primary" onclick="quickAdd('${escHtml(section)}'${objParam})">Add</button>
+  </div>`;
+}
+
+function renderTaskGroup(title, tasks, section) {
+  return `
+  <div class="section-group">
+    <div class="section-label">${escHtml(title)}</div>
+    ${tasks.map(t => renderTaskCard(t)).join('') || '<div class="empty">No tasks here</div>'}
+    ${renderAddRow(section || title)}
+  </div>`;
+}
+
+// ─── WEEK BOUNDARIES ───
+function getWeekBoundaries() {
+  const d = new Date(TODAY);
+  const day = d.getDay(); // 0=Sun, 1=Mon…6=Sat
+  const mon = new Date(d);
+  mon.setDate(d.getDate() - (day === 0 ? 6 : day - 1));
+  const sun = new Date(mon);
+  sun.setDate(mon.getDate() + 6);
+  const MONTHS = 'Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec'.split(' ');
+  const fmt = dt => `${MONTHS[dt.getMonth()]} ${dt.getDate()}`;
+  const iso = dt => dt.toISOString().split('T')[0];
+  return { start: iso(mon), end: iso(sun), startFmt: fmt(mon), endFmt: fmt(sun) };
+}
+
+// ─── SPRINT META BANNER ───
+function renderSprintMeta() {
+  const s = state.sprint;
+  const sprintTasks = state.tasks.filter(t => !t.done && t.tags.includes('sprint'));
+  const week = getWeekBoundaries();
+
+  // Week deadline badge — always based on this Sunday
+  const daysLeft = Math.ceil((new Date(week.end) - new Date(TODAY)) / 86400000);
+  const weekCls = daysLeft <= 1 ? 'warn' : 'ok';
+  const weekLabel = daysLeft === 0 ? 'Ends today' : daysLeft === 1 ? '1 day left' : `${daysLeft} days left`;
+  const deadlineBadge = `<span class="sprint-meta-deadline ${weekCls}">📅 ${weekLabel}</span>`;
+
+  // Objective alignment
+  const objCounts = {};
+  for (const t of sprintTasks) {
+    if (t.objIdx != null && t.objIdx >= 0) objCounts[t.objIdx] = (objCounts[t.objIdx] || 0) + 1;
+  }
+  const unlinkedCount = sprintTasks.filter(t => t.objIdx == null || t.objIdx < 0).length;
+
+  const objChips = Object.entries(objCounts)
+    .sort((a, b) => b[1] - a[1])
+    .map(([idx, cnt]) => {
+      const i = parseInt(idx);
+      const c = getObjColor(i);
+      const g = state.goals[i];
+      if (!c || !g) return '';
+      const short = g.title.length > 20 ? g.title.slice(0, 18) + '…' : g.title;
+      return `<span class="sprint-obj-chip" style="background:${c.bg};color:${c.color};border-color:${c.border}" onclick="jumpToGoal(${i})" title="${escHtml(g.title)}">
+        🎯 ${escHtml(short)} <span class="sprint-obj-chip-count">${cnt}</span>
+      </span>`;
+    }).join('');
+
+  const unlinkedNote = unlinkedCount > 0
+    ? `<span class="sprint-unlinked-note">${unlinkedCount} unlinked</span>` : '';
+
+  return `<div class="sprint-meta-card">
+    <div class="sprint-meta-top">
+      <div class="sprint-meta-name">Week of ${week.startFmt} – ${week.endFmt}</div>
+      ${deadlineBadge}
+    </div>
+  </div>`;
+}
+
+// ─── TAB CONTENTS ───
+function priorityTier(t) {
+  return t.priority === 0 ? 0 : t.priority === 2 ? 2 : 1; // null → P1
+}
+
+function renderTieredList(tasks) {
+  // 'date' mode: flat chronological, no tier dividers
+  if (state.sortMode === 'date') {
+    return tasks.map(t => renderTaskCard(t)).join('');
+  }
+  // 'priority' mode: group by tier, show dividers only when multiple tiers present
+  const p0 = tasks.filter(t => priorityTier(t) === 0);
+  const p1 = tasks.filter(t => priorityTier(t) === 1);
+  const p2 = tasks.filter(t => priorityTier(t) === 2);
+  const mixed = [p0, p1, p2].filter(g => g.length > 0).length > 1;
+  const tierDefs = [
+    { tasks: p0, cls: 'p0', label: 'P0 · Critical' },
+    { tasks: p1, cls: 'p1', label: 'P1 · Normal'   },
+    { tasks: p2, cls: 'p2', label: 'P2 · Low'       },
+  ];
+  return tierDefs.filter(d => d.tasks.length).map(d =>
+    `${mixed ? `<div class="priority-tier-header ${d.cls}">${d.label}</div>` : ''}${d.tasks.map(t => renderTaskCard(t)).join('')}`
+  ).join('');
+}
+
+function renderSprintTab() {
+  const week = getWeekBoundaries();
+  // Show tasks due within the current Mon–Sun week, plus overdue open tasks
+  const deduped = state.tasks.filter(t =>
+    !t.done && t.dueDate && t.dueDate <= week.end
+  );
+  deduped.sort(taskSortComparator);
+  const sortBar = renderSortBar();
+  if (!deduped.length) return `${sortBar}<div class="empty" style="padding:60px">No tasks this week.</div>${renderAddRow('Tasks')}`;
+  return `${sortBar}<div class="section-group">${renderTieredList(deduped)}${renderAddRow('Tasks')}</div>`;
+}
+
+function renderAllTab() {
+  const open = state.tasks.filter(t => !t.done);
+  open.sort(taskSortComparator);
+  const sortBar = renderSortBar();
+  if (!open.length) return `${sortBar}<div class="empty" style="padding:60px">All clear!</div>`;
+  return `${sortBar}<div class="section-group">${renderTieredList(open)}${renderAddRow('Tasks')}</div>`;
+}
+
+function renderSomedayTab() {
+  const tasks = state.tasks.filter(t => !t.done && t.tags.includes('someday'));
+  tasks.sort(taskSortComparator);
+  const sortBar = renderSortBar();
+  if (!tasks.length) return `${sortBar}<div class="empty" style="padding:60px">No backlog items.</div>${renderAddRow('Tasks')}`;
+  return `${sortBar}<div class="section-group">${renderTieredList(tasks)}${renderAddRow('Tasks')}</div>`;
+}
+
+function renderDoneTab() {
+  const done = state.tasks.filter(t => t.done).sort((a,b) => (b.doneDate||'').localeCompare(a.doneDate||''));
+  if (!done.length) return `<div class="empty" style="padding:60px">Nothing completed yet.</div>`;
+  return `<div class="section-group">
+    <div class="section-label">Completed (${done.length})</div>
+    ${done.map(t => renderTaskCard(t)).join('')}
+  </div>`;
+}
+
+function renderGoalsTab() {
+  if (!state.goals.length) {
+    return `<div class="section-group">
+      <div style="display:flex;justify-content:flex-end;margin-bottom:10px">
+        <button class="btn-secondary" style="font-size:12px;padding:5px 12px" onclick="openGoalAdd()">+ Objective</button>
+      </div>
+      <div class="empty">No objectives yet.</div>
+    </div>`;
+  }
+
+  const unlinked = state.tasks.filter(t => !t.done && t.objIdx == null);
+
+  const goalCards = state.goals.map((g, idx) => {
+    const c = getObjColor(idx);
+    const linked = state.tasks.filter(t => t.objIdx === idx);
+    const open = linked.filter(t => !t.done);
+    const done = linked.filter(t => t.done);
+    const total = linked.length;
+    const pct = total > 0 ? Math.round((done.length / total) * 100) : 0;
+    const isOpen = state.openGoals.has(idx);
+    const sprintLinked = open.filter(t => t.tags.includes('sprint')).sort(taskSortComparator);
+    const otherLinked = open.filter(t => !t.tags.includes('sprint')).sort(taskSortComparator);
+
+    // Linked task rows
+    const taskRowsFn = (tasks, canUnlink = true) => tasks.map(t => {
+      const dueChip = t.dueDate
+        ? `<span style="font-size:10px;cursor:pointer;color:${getDueStatus(t.dueDate)==='overdue'?'#f87171':getDueStatus(t.dueDate)==='today'?'#fbbf24':'var(--muted)'}" onclick="quickSetDate(event,${t.id})" title="Click to change date">${fmtDate(t.dueDate)}</span>`
+        : (!t.done ? `<span style="font-size:10px;cursor:pointer;color:var(--muted)" onclick="quickSetDate(event,${t.id})" title="Set due date">+ date</span>` : '');
+      const pip = !t.done ? renderPriorityPip(t) : '';
+      return `
+      <div class="linked-task-row${t.done?' done-row':''}">
+        ${pip}
+        <div class="checkbox${t.done?' checked':''}" style="width:14px;height:14px;flex-shrink:0" onclick="toggleTask(${t.id})"></div>
+        <span class="linked-task-text${t.done?' striked':''}">${escHtml(t.displayText)}</span>
+        ${dueChip}
+        ${canUnlink ? `<button class="unlink-btn" onclick="unlinkTask(${t.id})" title="Remove link">×</button>` : ''}
+      </div>`;
+    }).join('');
+
+    // Dropdown to link unlinked tasks
+    const linkDropdown = `
+    <div class="link-row">
+      <select class="link-select" onchange="linkFromDropdown(this,${idx})">
+        <option value="">+ Link a task to this objective…</option>
+        ${unlinked.map(t => `<option value="${t.id}">${escHtml(t.displayText.length > 55 ? t.displayText.slice(0,53)+'…' : t.displayText)}</option>`).join('')}
+      </select>
+    </div>`;
+
+    const bodySection = isOpen ? `
+    <div class="goal-body-section">
+      ${g.body.trim() ? `<div class="goal-desc">${escHtml(g.body.trim())}</div>` : ''}
+      ${sprintLinked.length ? `<div class="linked-tasks-label">This week</div>${taskRowsFn(sprintLinked, true)}` : ''}
+      ${otherLinked.length ? `<div class="linked-tasks-label">Upcoming</div>${taskRowsFn(otherLinked, true)}` : ''}
+      ${done.length ? `<div class="linked-tasks-label">Completed</div>${taskRowsFn(done, false)}` : ''}
+      ${!linked.length && !g.body.trim() ? '<div style="font-size:13px;color:var(--muted);padding:12px 0">No tasks linked yet.</div>' : ''}
+      ${renderAddRow('Tasks', idx)}
+      ${unlinked.length ? linkDropdown : ''}
+    </div>` : '';
+
+    return `
+    <div class="goal-card">
+      <div class="goal-card-header" onclick="toggleGoal(${idx})">
+        <div class="goal-stripe" style="background:${c.color}"></div>
+        <div class="goal-num-badge" style="color:${c.color};border-color:${c.border};background:${c.bg}">${idx+1}</div>
+        <span class="goal-title-text">${escHtml(g.title)}</span>
+        <div class="goal-progress-area">
+          ${total > 0 ? `<span class="goal-task-count">${done.length}/${total} done</span><div class="goal-progress-wrap"><div class="goal-progress-bar" style="width:${pct}%;background:${c.color}"></div></div>` : `<span class="goal-task-count" style="opacity:0.4">No tasks</span>`}
+        </div>
+        <div class="goal-actions" onclick="event.stopPropagation()">
+          <button class="icon-btn" onclick="openGoalEdit(${idx})" title="Edit">✏️</button>
+          <button class="icon-btn del" onclick="deleteGoal(${idx})" title="Delete">🗑</button>
+        </div>
+        <span class="goal-chevron${isOpen?' open':''}">▼</span>
+      </div>
+      ${bodySection}
+    </div>`;
+  }).join('');
+
+  return `<div class="section-group">
+    <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
+      <button class="btn-secondary" style="font-size:12px;padding:5px 12px" onclick="openGoalAdd()">+ Objective</button>
+    </div>
+    ${goalCards}
+  </div>`;
+}
+
+function countTab(tab) {
+  if (!state.fileHandle) return '';
+  if (tab === 'goals')   return state.goals.length;
+  if (tab === 'sprint')  return state.tasks.filter(t => !t.done && t.tags.includes('sprint')).length;
+  if (tab === 'all')     return state.tasks.filter(t => !t.done).length;
+  if (tab === 'someday') return state.tasks.filter(t => !t.done && t.tags.includes('someday')).length;
+  if (tab === 'done')    return state.tasks.filter(t => t.done).length;
+  return '';
+}
+
+function renderModal() {
+  if (!state.modal) return '';
+  const { mode } = state.modal;
+
+  // ── Goal modal ──
+  if (mode === 'goal-add' || mode === 'goal-edit') {
+    const g = state.modal.goal || {};
+    const isEdit = mode === 'goal-edit';
+    return `
+    <div class="overlay" onclick="closeModal(event)">
+      <div class="modal" onclick="event.stopPropagation()">
+        <div class="modal-title">${isEdit ? 'Edit Objective' : 'New Objective'}</div>
+        <div class="form-row">
+          <label class="form-label">Title</label>
+          <input id="m-gtitle" class="form-input" value="${escHtml(g.title||'')}" placeholder="Objective title" autofocus />
+        </div>
+        <div class="form-row">
+          <label class="form-label">Description</label>
+          <textarea id="m-gbody" class="form-input" rows="4" placeholder="Context, path, constraints…" style="resize:vertical;line-height:1.5">${escHtml(g.body||'')}</textarea>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-secondary" onclick="state.modal=null;render()">Cancel</button>
+          <button class="btn-primary" onclick="${isEdit ? `submitGoalEdit(${state.modal.idx})` : 'submitGoalAdd()'}">${isEdit ? 'Save' : 'Add Objective'}</button>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  // ── Task modal ──
+  const { task } = state.modal;
+  const isEdit = mode === 'edit';
+  const t = task || {};
+  const existingTags = t.tags || [];
+  const defaultSection = state.modal.section || 'Tasks';
+  const sections = [...new Set(state.tasks.map(t => t.section))];
+  const defaultObjIdx = state.modal.defaultObjIdx;
+
+  const currentObjIdx = t.objIdx != null ? t.objIdx : (defaultObjIdx != null ? defaultObjIdx : -1);
+
+  return `
+  <div class="overlay" onclick="closeModal(event)">
+    <div class="modal" onclick="event.stopPropagation()">
+      <div class="modal-title">${isEdit ? 'Edit Task' : 'New Task'}</div>
+      <div class="form-row">
+        <label class="form-label">Task</label>
+        <input id="m-text" class="form-input" value="${escHtml(t.displayText||'')}" placeholder="What needs to be done?" autofocus />
+      </div>
+      <div class="form-grid">
+        <div class="form-row">
+          <label class="form-label">Due Date</label>
+          <input id="m-due" class="form-input" type="date" value="${t.dueDate||''}" />
+        </div>
+        <div class="form-row">
+          <label class="form-label">Group</label>
+          <select id="m-section" class="form-select">
+            ${sections.map(s => `<option value="${s}" ${(t.section||defaultSection)===s?'selected':''}>${s}</option>`).join('')}
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <label class="form-label">Links to Objective</label>
+        <select id="m-obj" class="form-select">
+          <option value="-1">— None —</option>
+          ${state.goals.map((g,i) => {
+            const c = getObjColor(i);
+            return `<option value="${i}" ${currentObjIdx===i?'selected':''}>${i+1}. ${escHtml(g.title)}</option>`;
+          }).join('')}
+        </select>
+      </div>
+      <div class="form-grid">
+        <div class="form-row">
+          <label class="form-label">Priority</label>
+          <select id="m-priority" class="form-select">
+            <option value="0" ${t.priority===0?'selected':''}>P0 — Critical</option>
+            <option value="1" ${(t.priority==null||t.priority===1)?'selected':''}>P1 — Normal (default)</option>
+            <option value="2" ${t.priority===2?'selected':''}>P2 — Low</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label class="form-label">Tags</label>
+          <div style="display:flex;flex-direction:column;gap:6px;padding-top:4px">
+            <label style="display:flex;align-items:center;gap:5px;cursor:pointer;font-size:13px;color:var(--text2)">
+              <input type="checkbox" id="m-tag-sprint" ${existingTags.includes('sprint')?'checked':''} style="accent-color:var(--accent)"> This week
+            </label>
+            <label style="display:flex;align-items:center;gap:5px;cursor:pointer;font-size:13px;color:var(--text2)">
+              <input type="checkbox" id="m-tag-someday" ${existingTags.includes('someday')?'checked':''} style="accent-color:var(--accent)"> Backlog
+            </label>
+            <label style="display:flex;align-items:center;gap:5px;cursor:pointer;font-size:13px;color:var(--text2)">
+              <input type="checkbox" id="m-tag-weekly" ${existingTags.includes('weekly')?'checked':''} style="accent-color:var(--accent)"> Weekly recurring
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="state.modal=null;render()">Cancel</button>
+        <button class="btn-primary" onclick="${isEdit ? `submitEdit(${t.id})` : 'submitAdd()'}">${isEdit ? 'Save' : 'Add Task'}</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderStatusBar() {
+  const parts = [];
+  if (state.fileHandle) {
+    const open = state.tasks.filter(t => !t.done).length;
+    const sprint = state.tasks.filter(t => !t.done && t.tags.includes('sprint')).length;
+    parts.push(`${open} open · ${sprint} this week`);
+    if (state.dirty) parts.push(`<span class="unsaved">● Unsaved</span>`);
+    else if (state.savedAt) parts.push(`<span class="saved">✓ Saved ${state.savedAt.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}</span>`);
+  } else { parts.push('No file open'); }
+  if (state.toast) parts.push(`<span class="saved">${state.toast}</span>`);
+  return `<div class="statusbar">${parts.join(' · ')}</div>`;
+}
+
+function render() {
+  // Goals first in tab order, sprint is default active
+  const tabs = ['goals','sprint','all','someday','done'];
+  const tabLabels = { goals:'Objectives', sprint:'This Week', all:'All Tasks', someday:'Backlog', done:'Done' };
+
+  const tabHtml = tabs.map(t => {
+    const count = countTab(t);
+    const badge = count !== '' ? `<span class="badge">${count}</span>` : '';
+    return `<div class="tab${state.activeTab===t?' active':''}" onclick="setTab('${t}')">${tabLabels[t]}${badge}</div>`;
+  }).join('');
+
+  let content = '';
+  if (!state.fileHandle) {
+    content = state.storedHandle ? `
+    <div class="landing">
+      <div class="landing-icon">📋</div>
+      <h2>Priorities</h2>
+      <button class="btn-primary" onclick="reconnectVault()" style="font-size:15px;padding:12px 28px">Open Priorities</button>
+      <p class="hint">Click Allow if Chrome asks for file access</p>
+    </div>` : `
+    <div class="landing">
+      <div class="landing-icon">📋</div>
+      <h2>Priorities</h2>
+      <p>Open your Obsidian vault to manage tasks and objectives in <code>Priorities/priorities.md</code>.</p>
+      <button class="btn-primary" onclick="openVault()" style="font-size:15px;padding:12px 28px">Open Vault Folder</button>
+      <p class="hint">Pick your vault once — Chrome will remember it next time</p>
+    </div>`;
+  } else {
+    let tabContent = '';
+    if (state.activeTab === 'goals')   tabContent = renderGoalsTab();
+    else if (state.activeTab === 'sprint')  tabContent = renderSprintTab();
+    else if (state.activeTab === 'all')     tabContent = renderAllTab();
+    else if (state.activeTab === 'someday') tabContent = renderSomedayTab();
+    else if (state.activeTab === 'done')    tabContent = renderDoneTab();
+    content = `<div class="main">${tabContent}</div>`;
+  }
+
+  root().innerHTML = `
+    <div class="header">
+      <span class="header-logo">📋 Priorities</span>
+      ${state.fileHandle ? `<span class="header-sprint">${getWeekBoundaries().startFmt} – ${getWeekBoundaries().endFmt}</span>` : ''}
+      <div class="header-right">
+        ${state.fileHandle ? `
+          <button class="btn-secondary" onclick="openAddModal()">+ Task</button>
+          <button class="btn-secondary" onclick="loadFile()" title="Refresh from file">↺</button>
+          <button class="btn-secondary" onclick="openVault()" title="Switch vault folder" style="font-size:12px;padding:7px 10px">⚙ Vault</button>
+        ` : `<button class="btn-primary" onclick="openVault()">Open Vault</button>`}
+      </div>
+    </div>
+    ${state.fileHandle ? `<div class="tabs">${tabHtml}</div>` : ''}
+    ${content}
+    ${renderModal()}
+    ${renderStatusBar()}
+    <div style="height:36px"></div>
+  `;
+}
+
+// ═══════════════════════════════════════════════
+//  EVENT HANDLERS
+// ═══════════════════════════════════════════════
+window.openVault   = openVault;
+window.loadFile    = loadFile;
+window.saveFile    = saveFile;
+window.toggleTask  = toggleTask;
+window.deleteTask  = deleteTask;
+window.unlinkTask      = unlinkTask;
+window.addToCalendar   = addToCalendar;
+window.addGoal     = addGoal;
+window.editGoal    = editGoal;
+window.deleteGoal  = deleteGoal;
+
+window.toggleGoal = function(idx) {
+  if (state.openGoals.has(idx)) state.openGoals.delete(idx);
+  else state.openGoals.add(idx);
+  render();
+};
+
+// Navigate to Objectives tab and expand the target goal card
+window.jumpToGoal = function(idx) {
+  state.activeTab = 'goals';
+  state.openGoals.add(idx);
+  render();
+  // Scroll the goal card into view after render
+  setTimeout(() => {
+    const cards = document.querySelectorAll('.goal-card');
+    if (cards[idx]) cards[idx].scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 60);
+};
+
+window.setTab = function(tab) {
+  state.activeTab = tab; render();
+};
+
+// quickAdd: called from inline add rows
+// section arg, optional objIdx
+window.handleAddKey = function(event, section, objIdx) {
+  if (event.key === 'Enter') quickAdd(section, objIdx);
+};
+window.quickAdd = function(section, objIdx) {
+  const input = document.getElementById('add-' + section);
+  if (!input || !input.value.trim()) return;
+  const tag = state.activeTab === 'someday' ? 'someday' : 'sprint';
+  const oi = objIdx != null ? objIdx : null;
+  addTask(section, input.value.trim(), [tag], null, oi);
+};
+
+// Link task from goal card dropdown
+window.linkFromDropdown = function(sel, objIdx) {
+  const taskId = parseInt(sel.value);
+  if (!taskId) return;
+  linkTaskToGoal(taskId, objIdx);
+};
+
+window.openAddModal = function(section, defaultObjIdx) {
+  state.modal = { mode: 'add', section: section || 'Tasks', defaultObjIdx: defaultObjIdx ?? null };
+  render();
+  setTimeout(() => document.getElementById('m-text')?.focus(), 50);
+};
+
+window.openGoalAdd = function() {
+  state.modal = { mode: 'goal-add' };
+  render();
+  setTimeout(() => document.getElementById('m-gtitle')?.focus(), 50);
+};
+
+window.openGoalEdit = function(idx) {
+  const g = state.goals[idx]; if (!g) return;
+  state.modal = { mode: 'goal-edit', idx, goal: { ...g } };
+  render();
+  setTimeout(() => document.getElementById('m-gtitle')?.focus(), 50);
+};
+
+window.closeModal = function(e) {
+  if (e && e.target === e.currentTarget) { state.modal = null; render(); }
+};
+
+window.submitGoalAdd = function() {
+  const title = document.getElementById('m-gtitle')?.value || '';
+  const body  = document.getElementById('m-gbody')?.value  || '';
+  if (!title.trim()) return;
+  state.modal = null; addGoal(title, body);
+};
+
+window.submitGoalEdit = function(idx) {
+  const title = document.getElementById('m-gtitle')?.value || '';
+  const body  = document.getElementById('m-gbody')?.value  || '';
+  if (!title.trim()) return;
+  state.modal = null; editGoal(idx, title, body);
+};
+
+window.openEdit = function(taskId) {
+  const task = state.tasks.find(t => t.id === taskId); if (!task) return;
+  state.modal = { mode: 'edit', task: { ...task, tags: [...task.tags] } };
+  render();
+  setTimeout(() => document.getElementById('m-text')?.focus(), 50);
+};
+
+function getModalObjIdx() {
+  const v = document.getElementById('m-obj')?.value;
+  return v != null ? parseInt(v) : -1;
+}
+
+window.submitAdd = function() {
+  const text = document.getElementById('m-text')?.value || '';
+  const dueDate = document.getElementById('m-due')?.value || null;
+  const section = document.getElementById('m-section')?.value || 'Tasks';
+  const tags = ['sprint','someday','weekly'].filter(t => document.getElementById('m-tag-'+t)?.checked);
+  const objIdx = getModalObjIdx();
+  const priority = parseInt(document.getElementById('m-priority')?.value ?? '1');
+  if (!text.trim()) return;
+  state.modal = null;
+  addTask(section, text, tags, dueDate, objIdx >= 0 ? objIdx : null, isNaN(priority) ? null : priority);
+};
+
+window.submitEdit = function(taskId) {
+  const text = document.getElementById('m-text')?.value || '';
+  const dueDate = document.getElementById('m-due')?.value || null;
+  const tags = ['sprint','someday','weekly'].filter(t => document.getElementById('m-tag-'+t)?.checked);
+  const objIdx = getModalObjIdx();
+  const priority = parseInt(document.getElementById('m-priority')?.value ?? '1');
+  if (!text.trim()) return;
+  state.modal = null;
+  updateTask(taskId, text, tags, dueDate, objIdx >= 0 ? objIdx : null, isNaN(priority) ? null : priority);
+};
+
+document.addEventListener('keydown', e => {
+  if ((e.metaKey || e.ctrlKey) && e.key === 's') { e.preventDefault(); if (state.dirty) saveFile(); }
+  if (e.key === 'Escape' && state.modal) { state.modal = null; render(); }
+});
+
+// ═══════════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════════
+tryRestoreVault();
+</script>
+</body>
+</html>

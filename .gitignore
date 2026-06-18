@@ -1,0 +1,11 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Private vault folders — never push these
+Portfolio/
+
+# Obsidian workspace files (optional — remove if you want to sync these)
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
