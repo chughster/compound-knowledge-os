@@ -2,8 +2,6 @@
 
 Compound is a simple, open source personal knowledge management system built for people who prefer GUIs over terminal windows. It uses Claude Cowork and Obsidian to record, structure and synthesise your knowledge, goals and life context into an interconnected set of notes that learn from you over time.
 
-Everything connects. Nothing gets lost. Free on GitHub. Runs on Claude Pro. No code required.
-
 ---
 
 ## In Practice
