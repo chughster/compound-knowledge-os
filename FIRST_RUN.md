@@ -112,3 +112,35 @@ By the end of this session, you'll have:
 | `_system/log.md` | Setup log entry marking day zero |
 
 Setup takes 10–15 minutes. After that, your vault is live.
+
+---
+
+## Step 3 — Set Up Scheduled Tasks
+
+Scheduled tasks are what make the system run automatically. Paste the prompt below into your Claude Cowork project and Claude will set up all four tasks at once.
+
+---
+
+I've just completed my vault setup. Please create the following scheduled tasks in this Cowork project. For each task, use the schedule specified and follow the relevant protocol from `_system/fast-paths.md` when it runs.
+
+**Task 1 — Vault Inbox Scan**
+Schedule: Daily
+What to do: Scan `Web Clippings/` for any notes tagged `status: inbox`. For each one, read the content, extract key mental models, update the relevant Synthesis page, and mark the note as processed.
+
+**Task 2 — Priorities Check-in**
+Schedule: Every Monday at 11:00 AM
+What to do: Read `Priorities/priorities.md` and `Context/CONTEXT.md`. Summarise sprint health, flag overdue items, and surface the top 3 priorities for the week.
+
+**Task 3 — Learning Recap**
+Schedule: Every Monday at 12:30 PM
+What to do: Review notes processed in the last 7 days. Summarise key themes and mental models, flag any contradictions with existing Syntheses, and suggest 2-3 topics worth exploring next.
+
+**Task 4 — Monthly Evolution**
+Schedule: 1st of every month at 10:00 AM
+What to do: Review `Context/CONTEXT.md` and `Priorities/priorities.md`. Flag anything that looks stale or no longer relevant. Propose any structural changes to the vault that would better reflect my current situation.
+
+Create all four tasks now and confirm when done.
+
+---
+
+The inbox scan is the most important — it's what processes your web clippings automatically.

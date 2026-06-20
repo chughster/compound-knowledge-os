@@ -7,10 +7,10 @@ Compound is a simple, open source personal knowledge management system built for
 ## In Practice
 
 **A YouTube talk becomes a mental model library.**
-You watch a Charlie Munger lecture. You clip it. Claude reads the transcript, extracts the key mental models, and files them into your vault - each linked to related ideas already there. Next time you're facing a decision, the relevant models surface automatically.
+You watch a Charlie Munger lecture. You clip it. The system processes it automatically - extracts the key mental models, files them into your vault, and links them to related ideas already there. Next time you're facing a decision, the relevant models surface on their own.
 
 **Scattered research becomes a single investment thesis.**
-You've been clipping articles, YouTube breakdowns, and podcast snippets on a sector. Claude reads across all of them, builds a single living page - current thesis, evidence for, evidence against, open questions - and sharpens it every time something new comes in.
+You clip articles, YouTube breakdowns, and podcast snippets on a sector as you find them. The system processes each one automatically - building and sharpening a single living page with a current thesis, evidence for, evidence against, and open questions.
 
 **Big life goals become a working task system.**
 You tell Claude your goals. It breaks them into a prioritised task list in a visual tracker. When you get stuck, it surfaces the learning and mental models most relevant to unblocking you.
