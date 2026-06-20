@@ -33,9 +33,9 @@ I wanted something that started with me - my context, my quirks, my goals - and 
 ## Getting Started
 
 **What you need:**
-- [Obsidian](https://obsidian.md/download) - free (Mac, Windows, Linux, iOS, Android)
+- [Obsidian](https://obsidian.md/download) - a free note-taking app that works brilliantly with Claude and markdown files (Mac, Windows, Linux, iOS, Android)
 - [Claude Cowork](https://claude.ai/referral/YU4FcS6hQQ) - Claude Pro desktop app
-- iCloud - free, for mobile sync
+- iCloud - free, optional (only needed if you want mobile sync)
 
 No API keys. No code. No servers.
 
