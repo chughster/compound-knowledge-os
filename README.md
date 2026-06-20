@@ -1,61 +1,24 @@
 # Compound - A No Code Personal Knowledge OS
 
-Compound is a simple, open source personal knowledge management system built for non-technical people who prefer GUIs over terminal windows. It uses Claude Cowork and Obsidian to record, structure and synthesise your knowledge, goals and life context into an interconnected set of notes that learn from you over time - the content you consume, the decisions you make, the ideas you're tracking.
-
-A Charlie Munger YouTube talk becomes a collection of mental models - surfaced whenever you are facing decisions. A handful of scattered research clips on stocks become a single investment thesis. Your big life goals become actionable tasks in a visual tracker - and when you get stuck, relevant learning and mental models are surfaced to help you get unblocked.
+Compound is a simple, open source personal knowledge management system built for people who prefer GUIs over terminal windows. It uses Claude Cowork and Obsidian to record, structure and synthesise your knowledge, goals and life context into an interconnected set of notes that learn from you over time.
 
 Everything connects. Nothing gets lost. Free on GitHub. Runs on Claude Pro. No code required.
 
 ---
 
-## Getting Started
+## In Practice
 
-**What you need:**
-- [Obsidian](https://obsidian.md/download) - free (Mac, Windows, Linux, iOS, Android)
-- [Claude Cowork](https://claude.ai/referral/YU4FcS6hQQ) - Claude Pro desktop app- iCloud - free, for mobile sync
+**A YouTube talk becomes a mental model library.**
+You watch a Charlie Munger lecture. You clip it. Claude reads the transcript, extracts the key mental models, and files them into your vault - each linked to related ideas already there. Next time you're facing a decision, the relevant models surface automatically.
 
-**Setup:**
+**Scattered research becomes a single investment thesis.**
+You've been clipping articles, YouTube breakdowns, and podcast snippets on a sector. Claude reads across all of them, builds a single living page - current thesis, evidence for, evidence against, open questions - and sharpens it every time something new comes in.
 
-1. Download the vault: click the green **Code** button on this page, then **Download ZIP**. Unzip the folder to a permanent location on your computer (Documents or iCloud Drive works well). This folder is your Knowledge OS - put it somewhere you'll keep it.
+**Big life goals become a working task system.**
+You tell Claude your goals. It breaks them into a prioritised task list in a visual tracker. When you get stuck, it surfaces the learning and mental models most relevant to unblocking you.
 
-2. Open Obsidian, click **Open folder as vault**, and select the unzipped folder. Your vault is live.
-
-3. Install the required plugins: **Settings - Community Plugins - turn off Restricted Mode - Browse**. Search by name, install, enable.
-
-   | Plugin | Required? |
-   |--------|-----------|
-   | Tasks | Essential |
-   | Dataview | Essential |
-   | Templater | Essential |
-   | Homepage | Recommended |
-   | Git | Optional (for developers) |
-
-   Also install [Obsidian Web Clipper](https://obsidian.md/clipper) - one-click capture from any webpage or YouTube video.
-
-4. Open the **Claude Cowork desktop app**, create a new project, go to **Project Settings**, and paste the contents of `_system/project-instructions.md` into the Custom Instructions field.
-
-5. Open `FIRST_RUN.md` and follow the steps inside. Claude will interview you and configure the whole system for your life in one session.
-
--> **[Open FIRST_RUN.md](FIRST_RUN.md)**
-
-**The full stack:**
-
-| Tool | Cost | Role |
-|------|------|------|
-| [Obsidian](https://obsidian.md/download) | Free | Vault, editing, mobile, web clipping |
-| [Claude Cowork](https://claude.ai/referral/YU4FcS6hQQ) (desktop app) | Claude Pro | AI reasoning, synthesis, file writing, scheduled tasks |
-| iCloud | Free | Mobile sync |
-| Obsidian Web Clipper | Free | One-click web capture |
-| Obsidian Tasks plugin | Free | Live task dashboard inside Obsidian |
-| task-manager.html | Free (included) | App-style task view in any browser |
-| Obsidian Dataview plugin | Free | Dynamic vault views |
-| Obsidian Templater plugin | Free | Auto-filled note templates |
-
-**Optional paid add-on:**
-
-[Readwise](https://readwise.io) ($9.99/month) syncs your Kindle highlights, book annotations, and reading history directly into a `Readwise/` folder in your vault. Highlights flow in automatically and you process them during ingest sessions. If you prefer free, export Kindle highlights via [Amazon's notebook](https://read.amazon.com/kp/notebook) and paste them manually.
-
-No API keys. No code. No servers.
+**Your weekly learning recaps itself.**
+Every Monday, Claude scans your vault, surfaces what you've been learning, flags contradictions, and suggests what to explore next. Your thinking compounds whether or not you're paying attention.
 
 ---
 
@@ -69,39 +32,41 @@ I wanted something that started with me - my context, my quirks, my goals - and 
 
 ---
 
-## In Practice
+## Getting Started
 
-### Example 1: YouTube Video to Mental Models to Action
+**What you need:**
+- [Obsidian](https://obsidian.md/download) - free (Mac, Windows, Linux, iOS, Android)
+- [Claude Cowork](https://claude.ai/referral/YU4FcS6hQQ) - Claude Pro desktop app
+- iCloud - free, for mobile sync
 
-You watch a long-form interview with a founder or investor. An hour of ideas. Normally you'd retain 10% of it by Friday.
+No API keys. No code. No servers.
 
-**You clip it.** Obsidian Web Clipper saves the video to your vault, tagged `status: inbox`.
+**Setup:**
 
-**Claude processes it.** You open a session and say "process this clip." Claude reads the transcript, pulls out 3-5 reusable mental models, and writes each one as a standalone note in `Mental Models/`. Each model gets a plain-language summary, a real-world application, and links to related models already in your vault.
+1. Download the vault: click the green **Code** button on this page, then **Download ZIP**. Unzip the folder to a permanent location on your computer (Documents or iCloud Drive works well).
 
-**The Synthesis updates.** If the ideas connect to a topic you're already tracking - decision-making, compounding, whatever - Claude updates the relevant Synthesis page and refines the thesis.
+2. Open Obsidian, click **Open folder as vault**, and select the unzipped folder. Your vault is live.
 
-**It lands in your tasks.** If any insight applies to something you're working on, Claude writes a task into your to-do list with a due date. The idea doesn't evaporate.
+3. Install the required plugins: **Settings - Community Plugins - turn off Restricted Mode - Browse**. Search by name, install, enable.
 
-By Monday's Learning Recap, the video has been distilled into permanent knowledge, cross-linked to your existing thinking, and converted into at least one concrete next step.
+   | Plugin | Required? |
+   |--------|-----------|
+   | Tasks | Essential |
+   | Dataview | Essential |
+   | Templater | Essential |
+   | Homepage | Recommended |
 
----
+   Also install [Obsidian Web Clipper](https://obsidian.md/clipper) - one-click capture from any webpage or YouTube video.
 
-### Example 2: Research to Investment Thesis to Watchlist
+4. Open the **Claude Cowork desktop app**, create a new project. In Obsidian, open `_system/project-instructions.md`, copy the full contents, and paste into the **Custom Instructions** field in Cowork. Save.
 
-You've been following a sector - nuclear energy, defence, AI infrastructure, whatever. Articles here, a YouTube breakdown there, a podcast mention. The signal is scattered.
+5. Open `FIRST_RUN.md` and follow the steps inside. Claude will interview you and configure the whole system for your life in one session.
 
-**Each piece gets clipped.** Web Clipper saves each one to `Web Clippings/`, tagged `status: inbox`.
+-> **[Open FIRST_RUN.md](FIRST_RUN.md)**
 
-**Claude builds the thesis.** You say "process these clips." Claude reads across all of them, finds the common thread, and creates or updates a Synthesis page: a single living page with a current view, evidence for, evidence against, and open questions. Every new clip sharpens it.
+**Optional paid add-on:**
 
-**An Investment Idea note gets created.** When the thesis is strong enough, Claude creates a note in `Investment Ideas/` with a ticker, a one-sentence thesis, conviction level, and sources.
-
-**Scheduled monitoring kicks in.** A weekly scheduled task fetches the latest price and market context and appends it to your Investment Idea note automatically. Current context always sits alongside your original thesis.
-
-**The trade becomes a task.** When you decide to act, Claude writes a task into your to-do: buy trigger, price level, rationale. It sits in your dashboard until you execute or cancel. The decision is documented either way.
-
-The full chain - from a YouTube video to a tracked position with documented rationale - happens inside one system, with no separate spreadsheets or bookmarks folders.
+[Readwise](https://readwise.io) ($9.99/month) syncs your Kindle highlights and book annotations directly into your vault. If you prefer free, export Kindle highlights via [Amazon's notebook](https://read.amazon.com/kp/notebook) and paste them manually.
 
 ---
 
@@ -109,11 +74,11 @@ The full chain - from a YouTube video to a tracked position with documented rati
 
 ### Every Session Picks Up Where You Left Off
 
-At the start of every Claude session, three small files load automatically. One tells Claude who you are and what you're working on. One gives it a catalog of your vault. One contains pre-defined workflows for common situations. Claude orients itself in seconds. You start working immediately - no re-explaining, no copy-pasting context.
+At the start of every Claude session, three small files load automatically. One tells Claude who you are and what you're working on. One gives it a catalog of your vault. One contains pre-defined workflows for common situations. Claude orients itself in seconds - no re-explaining, no copy-pasting context.
 
 ### You Control What Claude Sees
 
-Every note has a simple on/off flag. Raw web clippings are invisible to Claude until you process them. Processed notes are visible. Your vault can grow to thousands of notes and sessions stay fast and lean - Claude only ever sees what's ready.
+Every note has a simple on/off flag. Raw web clippings are invisible to Claude until you process them. Processed notes are visible. Your vault can grow to thousands of notes and sessions stay fast - Claude only ever sees what's ready.
 
 ### Fast-Path Workflows
 
@@ -128,38 +93,11 @@ Common requests route directly to predefined workflows:
 
 ### The Compounding Layer
 
-`Syntheses/` holds one living page per topic. Every relevant ingest updates it.
-
-Ten articles on the same topic become one Synthesis page: current thesis, evidence for, evidence against, open questions, sources. The eleventh article makes it sharper. Knowledge compounds rather than piles up.
+One living page per topic. Every relevant piece of content you process updates it. Ten articles on the same topic become one sharp page. The eleventh makes it sharper. Knowledge compounds rather than piles up.
 
 ### Tasks and Goals
 
-Long-term goals, active sprint, and daily tasks all live in one file. The Obsidian Tasks plugin renders a live dashboard:
-
-| View | What it shows |
-|------|--------------|
-| Overdue | Missed deadlines |
-| Due This Week | What needs to happen now |
-| Sprint | Active sprint focus |
-| Upcoming | Next 4 weeks |
-| Someday | Captured, no date yet |
-| Completed | Last 20, most recent first |
-
-When Claude creates a task from an insight, a meeting, or a decision, it writes directly into this file. Tick a checkbox anywhere and the source file updates instantly.
-
-For a full app-style interface, `task-manager.html` opens in any browser. Tasks appear in a clean dark-themed dashboard organised by sprint, due date, and priority. Edit task text, change due dates, update tags - every change writes back directly.
-
-### Automated Maintenance
-
-Scheduled tasks run on a weekly cadence:
-
-| Task | Schedule | Output |
-|------|----------|--------|
-| Vault inbox scan | Monday 10:30 AM | Processes clippings, cleans orphans, flags stale claims |
-| Priorities check-in | Monday 11:00 AM | Weekly priorities note - sprint health, ranked focus |
-| Learning recap | Monday 12:30 PM | Weekly recap - deep dives, themes, contradictions, what to explore next |
-| Portfolio price sync | Sunday 8:00 PM | Updates holdings with latest prices |
-| Monthly evolution | 1st of month | Reviews identity file, flags stale priorities, proposes structural changes |
+Goals, sprint, and daily tasks all live in one file. The Obsidian Tasks plugin renders a live dashboard - overdue, this week, sprint, upcoming, someday. When Claude creates a task from an insight or a decision, it writes directly into this file. For a full app-style view, `task-manager.html` opens in any browser.
 
 ### Vault Structure
 
@@ -185,11 +123,11 @@ Second Brain/
 
 **Does this work on mobile?**
 
-Yes. Obsidian has free apps for iOS and Android. Your vault syncs via iCloud so notes, tasks, and clippings are on your phone. The Obsidian Web Clipper browser extension works on mobile too - clip any article or YouTube video directly into your vault while browsing. AI sessions on mobile use the Claude chat interface. Full file-writing automation is desktop only; mobile gives you the thinking layer wherever you are.
+Yes. Obsidian has free apps for iOS and Android. Your vault syncs via iCloud so notes, tasks, and clippings are on your phone. The Obsidian Web Clipper works on mobile too - clip any article or YouTube video directly into your vault while browsing. Full file-writing automation is desktop only; mobile gives you the thinking layer wherever you are.
 
 **Does this work on Windows?**
 
-Yes. Obsidian runs on Windows, Mac, and Linux. Claude Cowork is available on both Windows and Mac. One note on sync: iCloud on Windows can be clunky. OneDrive or Dropbox are smoother alternatives if you're on Windows.
+Yes. Obsidian runs on Windows, Mac, and Linux. Claude Cowork is available on both. One note on sync: iCloud on Windows can be clunky. OneDrive or Dropbox are smoother alternatives.
 
 **What does it actually cost?**
 
@@ -202,6 +140,8 @@ Your vault is just files on your computer. Nothing gets uploaded to a cloud serv
 **Can I use this with other AI tools?**
 
 The vault architecture is not Claude-specific. Theoretically it should work with any agentic AI that can read and write plain files. We haven't tested other setups yet - if you try it, let us know how it goes.
+
+**If you can use Obsidian, you can run this.** [This 15-minute video](https://www.youtube.com/watch?v=z4AbijUCoKU) covers everything you need to get started with Obsidian.
 
 ---
 
