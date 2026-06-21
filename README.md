@@ -15,7 +15,7 @@ You clip articles, YouTube breakdowns, and podcast snippets on a sector as you f
 **Big life goals become a working task system.**
 You tell Claude your goals. It breaks them into a prioritised task list in a visual tracker. When you get stuck, it surfaces the learning and mental models most relevant to unblocking you.
 
-**Your weekly learning recaps itself.**
+**Your weekly review runs itself.**
 Every Monday, Claude scans your vault, surfaces what you've been learning, flags contradictions, and suggests what to explore next. Your thinking compounds whether or not you're paying attention.
 
 ---
@@ -45,7 +45,7 @@ No API keys. No code. No servers.
 
 2. Open Obsidian, click **Open folder as vault**, and select the unzipped folder. Your vault is live.
 
-3. Go to **Settings - Community Plugins** and turn off Restricted Mode. Obsidian will prompt you to trust the pre-installed plugins - click **Trust and enable**. Done.
+3. Go to **Settings - Community Plugins** and turn off Restricted Mode. Obsidian will ask you to confirm - accept. The 4 required plugins are pre-installed and will enable automatically.
 
    Also install [Obsidian Web Clipper](https://obsidian.md/clipper) - one-click capture from any webpage or YouTube video.
 
@@ -118,7 +118,7 @@ Yes. Obsidian has free apps for iOS and Android. Your vault syncs via iCloud so 
 
 **Does this work on Windows?**
 
-Yes. Obsidian runs on Windows, Mac, and Linux. Claude Cowork is available on both. One note on sync: iCloud on Windows can be clunky. OneDrive or Dropbox are smoother alternatives.
+Yes. Obsidian runs on Windows, Mac, and Linux. Claude Cowork is available on Mac and Windows. One note on sync: iCloud on Windows can be clunky. OneDrive or Dropbox are smoother alternatives.
 
 **What does it actually cost?**
 
@@ -130,9 +130,11 @@ Your vault is just files on your computer. Nothing gets uploaded to a cloud serv
 
 **Can I use this with other AI tools?**
 
-The vault architecture is not Claude-specific. Theoretically it should work with any agentic AI that can read and write plain files. We haven't tested other setups yet - if you try it, let us know how it goes.
+The vault architecture is not Claude-specific. Theoretically it should work with any agentic AI that can read and write plain files. I haven't tested other setups yet - if you try it, let us know how it goes.
 
-**If you can use Obsidian, you can run this.** [This 15-minute video](https://www.youtube.com/watch?v=z4AbijUCoKU) covers everything you need to get started with Obsidian.
+**Do I need to know how to use Obsidian?**
+
+Not really. If you can open a folder and install a browser extension, you're set. [This 15-minute video](https://www.youtube.com/watch?v=z4AbijUCoKU) covers everything you need to get started.
 
 ---
 
