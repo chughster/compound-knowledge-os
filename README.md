@@ -45,7 +45,7 @@ No API keys. No code. No servers.
 
 2. Open Obsidian, click **Open folder as vault**, and select the unzipped folder. Your vault is live.
 
-3. Go to **Settings - Community Plugins** and turn off Restricted Mode. Obsidian will ask you to confirm - accept. The 4 required plugins are pre-installed and will enable automatically.
+3. In Obsidian, go to **Settings - Community Plugins** and turn off Restricted Mode. Obsidian will ask you to confirm - accept. The 4 required plugins (Tasks, Dataview, Templater, Homepage) are pre-installed and will enable automatically.
 
    Also install [Obsidian Web Clipper](https://obsidian.md/clipper) - one-click capture from any webpage or YouTube video.
 
