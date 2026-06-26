@@ -46,9 +46,7 @@ Here's what I need you to do:
 
 **Step 3 — Tailor my folder structure.** The vault folders already exist. Based on what I've told you, suggest which optional folders are relevant for me and which I can ignore. Then create a brief `_system/log.md` entry marking the setup as complete.
 
----
-
-**Start with Area 1: Who You Are**
+**Area 1: Who You Are**
 
 Ask me:
 - My name and where I'm based
@@ -57,8 +55,6 @@ Ask me:
 - What I'm trying to accomplish in the next 3–6 months — the strategic picture, broad goals and outcomes
 
 After I answer, move to Area 2.
-
----
 
 **Area 2: What's Active Right Now**
 
@@ -69,8 +65,6 @@ Ask me:
 - What would "a great month" look like for me
 
 After I answer, move to Area 3.
-
----
 
 **Area 3: What I Track and Learn**
 
@@ -83,8 +77,6 @@ Ask me:
 
 After I answer, move to Area 4.
 
----
-
 **Area 4: How I Work**
 
 Ask me:
@@ -92,8 +84,6 @@ Ask me:
 - Am I comfortable editing markdown files directly in Obsidian, or do I prefer to do everything through chat
 - Do I want weekly automated check-ins (priorities review + learning recap), or would I rather trigger these manually
 - Is there anything I definitely don't want the AI to do, surface, or store
-
----
 
 **After all four areas, do the following:**
 
