@@ -1,8 +1,6 @@
 # First Run Setup
 
-You've installed Obsidian, opened the vault template, and opened Claude Cowork. Now you need to configure the system for your life.
-
-Paste the prompt below into your Claude project. Claude will interview you and write all your config files directly to your vault in one session.
+You've installed Obsidian, opened the vault, and opened Claude Cowork. Now configure the system for your life.
 
 ---
 
@@ -18,7 +16,19 @@ Paste the prompt below into your Claude project. Claude will interview you and w
 
 ## Step 2 — Run Setup
 
-> Copy everything below this line and paste it into your Claude project.
+By the end of this session, Claude will have created:
+
+| File | What it contains |
+|------|-----------------|
+| `Context/CONTEXT.md` | Your identity, priorities, working style — the file Claude reads first in every session |
+| `_system/fast-paths.md` | Domain-specific workflows tailored to your life |
+| `_system/index.md` | A catalog skeleton Claude updates as your vault grows |
+| `Priorities/priorities.md` | Your top priorities as tasks, tagged and dated |
+| `_system/log.md` | Setup log entry marking day zero |
+
+Setup takes 10–15 minutes.
+
+> **📋 Copy everything between the lines below and paste it into your Claude project.**
 
 ---
 
@@ -99,25 +109,15 @@ Ready when you are. Start with Area 1.
 
 ---
 
-## What Gets Created
-
-By the end of this session, you'll have:
-
-| File | What it contains |
-|------|-----------------|
-| `Context/CONTEXT.md` | Your identity, ventures, priorities, working style — the file Claude reads first in every session |
-| `_system/fast-paths.md` | Domain-specific workflows tailored to your life |
-| `_system/index.md` | A catalog skeleton Claude updates as your vault grows |
-| `Priorities/priorities.md` | Your top priorities as tasks, tagged and dated |
-| `_system/log.md` | Setup log entry marking day zero |
-
-Setup takes 10–15 minutes. After that, your vault is live.
+> **End of prompt.**
 
 ---
 
 ## Step 3 — Set Up Scheduled Tasks
 
-Scheduled tasks are what make the system run automatically. Paste the prompt below into your Claude Cowork project and Claude will set up all four tasks at once.
+Scheduled tasks run automatically on a schedule — inbox processing, weekly review, learning recap, monthly check-in. Paste the prompt below into your Claude Cowork project to set them all up at once.
+
+> **📋 Copy everything between the lines below and paste it into your Claude project.**
 
 ---
 
@@ -143,4 +143,4 @@ Create all four tasks now and confirm when done.
 
 ---
 
-The inbox scan is the most important — it's what processes your web clippings automatically.
+> **End of prompt.**
