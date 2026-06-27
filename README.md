@@ -1,9 +1,8 @@
-# Compound - A Personal Knowledge OS
+# Compound - A Personal Decision Intelligence System
 
-You consume a lot of knowledge. Very little sticks.
-You make a lot of decisions. You learn from very few.
+People are consuming more information than ever. Very little of it compounds into better decisions.
 
-Compound is a free, open source personal knowledge system built on Obsidian and Claude. It turns what you read and watch into connected knowledge that surfaces when you need it, and gives you a structured framework for making decisions you can actually learn from. The more you use it, the smarter it gets.
+Compound transforms everything you read, watch, learn, and decide into a connected intelligence layer that grows more valuable over time. Built on Obsidian and Claude, it automatically links knowledge, mental models, research, and past decisions so the right insights surface when you need them most.
 
 No API keys. No code. No terminal.
 
@@ -17,8 +16,8 @@ You watch a Charlie Munger lecture. You clip it. The system processes it automat
 **Scattered research becomes a single living thesis.**
 You clip articles, YouTube breakdowns, and podcast snippets on a sector as you find them. The system processes each one - building and sharpening a single page with a current thesis, evidence for, evidence against, and open questions. The eleventh article makes it sharper than the tenth.
 
-**Your weekly review runs itself.**
-Every Monday, Claude scans your vault, surfaces what you've been learning, flags contradictions, and suggests what to explore next. Your thinking compounds whether or not you're paying attention.
+**Goals become a working system.**
+Set an objective and Claude breaks it into a prioritised task list tracked against a sprint. When you get stuck, relevant mental models and past decisions surface automatically to help you move forward. Every Monday, the system reviews what's complete, flags what's slipping, and tells you what to focus on next.
 
 ---
 
