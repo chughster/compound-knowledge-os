@@ -100,6 +100,8 @@ This is NOT a task. No checkbox, no deadline. It's a knowledge artifact.
 4. Fill the body: Decision, Context, What Happened, What I Learned, Pattern Tags, Links.
 5. Run post-write checklist: update index.md + log.md; link ≥ 2 related notes — especially mental models this decision validates or challenges.
 
+Retrospectives can also be logged directly from the Decisions tab in task-manager.html without needing to create a task first.
+
 **Pattern synthesis:** during monthly evolution review, scan all retrospectives. Surface recurring pattern tags. If 3+ retrospectives share a pattern (e.g. "overconfidence", "acting too early"), propose a `Learnings/` synthesis page that distils the pattern into an actionable mental model update.
 
 ---

@@ -1,6 +1,10 @@
 # Compound - Open Source Personal Knowledge OS
 
-Compound is a simple, open source personal knowledge management system built for people who prefer GUIs over terminal windows. It uses Claude Cowork and Obsidian to record, structure and synthesise your knowledge, goals and life context into an interconnected set of notes that learn from you over time.
+People are consuming more information than ever. Very little of it compounds into better decisions.
+
+Compound is a free, open-source Personal Knowledge OS built on Obsidian and Claude Cowork. It transforms everything you read, watch, learn, and decide into a connected intelligence layer that grows more valuable over time.
+
+No API keys. No code. No terminal.
 
 ---
 
@@ -9,55 +13,41 @@ Compound is a simple, open source personal knowledge management system built for
 **A YouTube talk becomes a mental model library.**
 You watch a Charlie Munger lecture. You clip it. The system processes it automatically - extracts the key mental models, files them into your vault, and links them to related ideas already there. Next time you're facing a decision, the relevant models surface on their own.
 
-**Scattered research becomes a single investment thesis.**
-You clip articles, YouTube breakdowns, and podcast snippets on a sector as you find them. The system processes each one automatically - building and sharpening a single living page with a current thesis, evidence for, evidence against, and open questions.
+**Scattered research becomes a single living thesis.**
+You clip articles, YouTube breakdowns, and podcast snippets on a sector as you find them. The system processes each one - building and sharpening a single page with a current thesis, evidence for, evidence against, and open questions. The eleventh article makes it sharper than the tenth.
+
+**Hard decisions become documented reasoning.**
+When you face a decision, tell Claude. It runs a structured framework: classifies the decision type, finds the real underlying problem, forces a third option, runs a pre-mortem. You set tripwires. Six months later, the system surfaces the note and asks: was the process sound?
 
 **Big life goals become a working task system.**
-You tell Claude your goals. It breaks them into a prioritised task list in a visual tracker. When you get stuck, it surfaces the learning and mental models most relevant to unblocking you.
-
-**Your weekly review runs itself.**
-Every Monday, Claude scans your vault, surfaces what you've been learning, flags contradictions, and suggests what to explore next. Your thinking compounds whether or not you're paying attention.
-
----
-
-## Why I Built This
-
-Every knowledge system I tried was designed for someone else.
-
-The good ones were built for developers - terminal first, config files, command line setup. The no-code ones were rigid templates that worked fine until my goals changed or my information habits didn't fit the structure. None of them adapted to how I actually think, what I'm actually working on, or the specific way I consume information.
-
-I wanted something that started with me - my context, my quirks, my goals - and got smarter the more I used it. Set it up once. The more you use it, the better it gets.
+You tell Claude your goals. It breaks them into a prioritised task list tracked against a sprint. When you get stuck, it surfaces the learning and mental models most relevant to unblocking you. Every Monday, the system reviews what's complete and tells you what to focus on next.
 
 ---
 
 ## Getting Started
 
 **What you need:**
-- [Obsidian](https://obsidian.md/download) - a free note-taking app that works brilliantly with Claude and markdown files (Mac, Windows, Linux, iOS, Android)
+- [Obsidian](https://obsidian.md/download) - a free note-taking app (Mac, Windows, Linux, iOS, Android)
 - [Claude Cowork](https://claude.ai/referral/YU4FcS6hQQ) - Claude Pro desktop app
-- iCloud - free, optional (only needed if you want mobile sync)
+- iCloud - optional, only needed for mobile sync
 
-No API keys. No code. No servers.
+**Setup (15 minutes):**
 
-**Setup:**
+1. Download the vault: click the green **Code** button on this page, then **Download ZIP**. Unzip to a permanent location on your computer.
 
-1. Download the vault: click the green **Code** button on this page, then **Download ZIP**. Unzip the folder to a permanent location on your computer (Documents or iCloud Drive works well).
-
-2. Open Obsidian, click **Open folder as vault**, and select the unzipped folder. Your vault is live.
+2. Open Obsidian, click **Open folder as vault**, and select the unzipped folder.
 
 3. In Obsidian, go to **Settings - Community Plugins** and turn off Restricted Mode. Obsidian will ask you to confirm - accept. The 4 required plugins (Tasks, Dataview, Templater, Homepage) are pre-installed and will enable automatically.
 
    Also install [Obsidian Web Clipper](https://obsidian.md/clipper) - one-click capture from any webpage or YouTube video.
 
-4. Open the **Claude Cowork desktop app**, create a new project. In Obsidian, open `_system/project-instructions.md`, copy the full contents, and paste into the **Custom Instructions** field in Cowork. Save.
+4. Open the **Claude Cowork desktop app** and create a new project. In Obsidian, open `_system/project-instructions.md`, copy the full contents, and paste into the **Custom Instructions** field in Cowork. Save.
 
-5. Open `FIRST_RUN.md` and follow the steps inside. Claude will interview you and configure the whole system for your life in one session.
+5. Open `FIRST_RUN.md` and follow the steps. Claude interviews you and configures the whole system for your life in one session.
 
--> **[Open FIRST_RUN.md](FIRST_RUN.md)**
+**[Open FIRST_RUN.md to begin →](FIRST_RUN.md)**
 
-**Optional paid add-on:**
-
-[Readwise](https://readwise.io) ($9.99/month) syncs your Kindle highlights and book annotations directly into your vault. If you prefer free, export Kindle highlights via [Amazon's notebook](https://read.amazon.com/kp/notebook) and paste them manually.
+**Optional:** [Readwise](https://readwise.io) ($9.99/month) syncs Kindle highlights directly into your vault. Free alternative: export via [Amazon's notebook](https://read.amazon.com/kp/notebook) and paste manually.
 
 ---
 
@@ -65,9 +55,9 @@ No API keys. No code. No servers.
 
 Compound works across three layers:
 
-**Think** — knowledge captured and connected so the right ideas surface when you need them.
-**Decide** — a structured framework for making decisions and learning from them over time.
-**Do** — goals, sprints, and weekly reviews that keep you moving forward.
+**Think** - knowledge captured and connected so the right ideas surface when you need them.
+**Decide** - a structured framework for making decisions and learning from them over time.
+**Do** - goals, sprints, and weekly reviews that keep you moving forward.
 
 ### Every Session Picks Up Where You Left Off
 
@@ -85,8 +75,8 @@ Common requests route directly to predefined workflows:
 |-----------------|----------------|
 | "process this article" | Reads, updates Synthesis, extracts mental models, marks done |
 | "prep me for my meeting with [person]" | Loads entity page, surfaces relevant notes, suggests questions |
-| "new investment idea: [ticker]" | Opens template, fills required fields, links to existing research |
 | "what are we working on this week" | Reads active priorities, gives ranked weekly focus |
+| "help me think through [decision]" | Runs structured decision framework, writes note to vault |
 
 ### The Compounding Layer
 
@@ -104,10 +94,11 @@ Second Brain/
 ├── Priorities/       <- Goals, sprint, and all tasks in one file
 ├── Syntheses/        <- Living thesis pages. The compounding layer.
 ├── Mental Models/    <- Reusable thinking frameworks
+├── Decisions/        <- Documented reasoning and retrospectives
 ├── Investment Ideas/ <- Theses with ticker, conviction, sources
 ├── Web Clippings/    <- Raw captures. AI-invisible until processed.
 ├── Books/            <- Processed book notes
-├── Learnings/        <- Post-mortems on your own decisions
+├── Learnings/        <- Weekly recaps and post-mortems
 ├── My Projects/      <- One note or subfolder per project
 ├── Meeting Notes/    <- Client, work, personal
 ├── Notes/            <- General scratchpad
@@ -119,28 +110,29 @@ Second Brain/
 ## FAQ
 
 **Does this work on mobile?**
-
-Yes. Obsidian has free apps for iOS and Android. Your vault syncs via iCloud so notes, tasks, and clippings are on your phone. The Obsidian Web Clipper works on mobile too - clip any article or YouTube video directly into your vault while browsing. Full file-writing automation is desktop only; mobile gives you the thinking layer wherever you are.
+Yes. Obsidian has free iOS and Android apps. Your vault syncs via iCloud, OneDrive, or Dropbox so notes, tasks, and clippings are on your phone. The Web Clipper works on mobile too. Full automation is desktop only; mobile gives you the thinking layer wherever you are.
 
 **Does this work on Windows?**
-
-Yes. Obsidian runs on Windows, Mac, and Linux. Claude Cowork is available on Mac and Windows. One note on sync: iCloud on Windows can be clunky. OneDrive or Dropbox are smoother alternatives.
+Yes. Obsidian runs on Windows, Mac, and Linux. Claude Cowork is available on Mac and Windows. iCloud on Windows can be clunky - OneDrive or Dropbox are smoother alternatives.
 
 **What does it actually cost?**
-
-Obsidian is free. Claude Cowork runs on a Claude Pro subscription. Readwise is optional at $9.99/month. Web Clipper and all Obsidian plugins are free.
+Obsidian is free. Claude Cowork runs on a Claude Pro subscription. Readwise is optional (check current pricing at readwise.io). Web Clipper and all Obsidian plugins are free.
 
 **Is my data private?**
+Your vault files live on your computer. Claude processes your notes during sessions per Anthropic's standard terms for your plan. Check your plan's data usage policy if this matters to you. Nothing is uploaded to any third-party service.
 
-Your vault is just files on your computer. Nothing gets uploaded to a cloud service unless you choose to sync it. Claude processes your notes during sessions but does not retain them between conversations.
+**Do I need to know Obsidian?**
+Optional. Setup requires no Obsidian knowledge. Just open the vault and the plugins load themselves. To get full value from the system, it's worth getting acquainted with the basics. [This 15-minute video](https://www.youtube.com/watch?v=z4AbijUCoKU) covers everything you need.
 
-**Can I use this with other AI tools?**
+---
 
-The vault architecture is not Claude-specific. Theoretically it should work with any agentic AI that can read and write plain files. I haven't tested other setups yet - if you try it, let us know how it goes.
+## Why I Built This
 
-**Do I need to know how to use Obsidian?**
+Every knowledge system I tried was designed for someone else.
 
-Not really. If you can open a folder and install a browser extension, you're set. [This 15-minute video](https://www.youtube.com/watch?v=z4AbijUCoKU) covers everything you need to get started.
+The good ones were built for developers - terminal first, config files, command line setup. The no-code ones were rigid templates that worked fine until my goals changed or my information habits didn't fit the structure. None of them adapted to how I actually think, what I'm actually working on, or the specific way I consume information.
+
+I wanted something that started with me - my context, my quirks, my goals - and got smarter the more I used it.
 
 ---
 

@@ -65,6 +65,24 @@ When scanning for unprocessed clippings, filter on `status: inbox` (or missing s
 
 ---
 
+## Task schema
+
+All tasks live in `Priorities/priorities.md`. Parsed by both Obsidian Tasks plugin and `task-manager.html`.
+
+**Format:** `- [ ] Task text 🎯 N #tag #priority 📅 YYYY-MM-DD`
+
+| Field | Values | Notes |
+|-------|--------|-------|
+| Horizon | Due date OR `#someday` | Has due date → surfaces in Week/Upcoming tabs by date. No due date → add `#someday` (backlog). Mutually exclusive. |
+| Priority | `#p0` / *(default P1)* / `#p2` | P0 = critical; omit for normal; P2 = low urgency |
+| Type | `#decision` / `#weekly` | `#decision` = logged decision, lives in Decisions tab, triggers reasoning modal on close. `#weekly` = recurring, shown as a chip. |
+| Goal link | `🎯 N` | Links to long-term objective N. task-manager.html groups tasks by this. |
+| Done marker | `✅ YYYY-MM-DD` | Set automatically when checkbox ticked |
+
+Note: task-manager.html is date-based — due date is the routing mechanism. `#someday` and `#decision` are suppressed from chip display.
+
+---
+
 ## Frontmatter schema
 
 | Field | Applies to | Values / Notes |
