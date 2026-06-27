@@ -89,7 +89,7 @@ Goals, sprint, and daily tasks all live in one file. The Obsidian Tasks plugin r
 ### Vault Structure
 
 ```
-Second Brain/
+Compound Vault/
 ├── Context/          <- Identity files. Claude loads these first.
 ├── Priorities/       <- Goals, sprint, and all tasks in one file
 ├── Syntheses/        <- Living thesis pages. The compounding layer.
@@ -132,7 +132,9 @@ Every knowledge system I tried was designed for someone else.
 
 The good ones were built for developers - terminal first, config files, command line setup. The no-code ones were rigid templates that worked fine until my goals changed or my information habits didn't fit the structure. None of them adapted to how I actually think, what I'm actually working on, or the specific way I consume information.
 
-I wanted something that started with me - my context, my quirks, my goals - and got smarter the more I used it.
+And none of them helped me make better decisions with what I'd learned.
+
+I wanted something that started with me - my context, my quirks, my goals - and evolved with my usage to make me sharper and more productive over time.
 
 ---
 

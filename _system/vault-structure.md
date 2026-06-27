@@ -13,7 +13,7 @@ tags: [system, vault-structure]
 ---
 
 ```
-Second Brain/
+Compound Vault/
 ├── Context/          ← CONTEXT.md and supporting files. Read first.
 ├── Priorities/       ← Long-term, weekly, and sprint priority tracking
 │   ├── priorities.md             ← Single editing surface: long-term objectives + all tasks (with due dates and tags)
