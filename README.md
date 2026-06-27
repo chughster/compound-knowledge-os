@@ -1,4 +1,4 @@
-# Compound - A No Code Personal Knowledge OS
+# Compound - Open Source Personal Knowledge OS
 
 Compound is a simple, open source personal knowledge management system built for people who prefer GUIs over terminal windows. It uses Claude Cowork and Obsidian to record, structure and synthesise your knowledge, goals and life context into an interconnected set of notes that learn from you over time.
 
@@ -62,6 +62,12 @@ No API keys. No code. No servers.
 ---
 
 ## How It Works
+
+Compound works across three layers:
+
+**Think** — knowledge captured and connected so the right ideas surface when you need them.
+**Decide** — a structured framework for making decisions and learning from them over time.
+**Do** — goals, sprints, and weekly reviews that keep you moving forward.
 
 ### Every Session Picks Up Where You Left Off
 
