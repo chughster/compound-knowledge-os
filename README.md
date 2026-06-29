@@ -62,8 +62,6 @@ Have Claude handle the download, setup, and first-run configuration automaticall
 
 **[Open FIRST_RUN.md to begin →](FIRST_RUN.md)**
 
-**Optional:** [Readwise](https://readwise.io) (paid, check current pricing) syncs Kindle highlights directly into your vault. Free alternative: export via [Amazon's notebook](https://read.amazon.com/kp/notebook) and paste manually.
-
 ---
 
 ## How It Works
@@ -119,6 +117,21 @@ Compound Vault/
 ├── Notes/            <- General scratchpad
 └── _system/          <- index, log, structure, fast-paths
 ```
+
+---
+
+## Recommended Add-ons
+
+These connect external data to your vault so Compound pulls information in automatically.
+
+| Add-on | What it does in Compound |
+|--------|--------------------------|
+| [Yahoo Finance MCP](https://github.com/danishashko/yahoo-finance-mcp) | Live price data and company info for Investment Ideas — ask Claude to update a thesis and it pulls current numbers |
+| [Readwise](https://readwise.io) | Syncs Kindle highlights and read-later saves directly into Web Clippings/ for processing |
+| Gmail Claude Connector | Meeting prep reads email thread context automatically; contact entity pages populate from correspondence |
+| Google Calendar Claude Connector | Meeting prep fast-path pulls today's schedule without you listing attendees manually |
+
+All are optional. Compound works without them — they just reduce the amount you have to feed in manually.
 
 ---
 
