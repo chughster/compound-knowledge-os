@@ -36,7 +36,7 @@ I've just set up the Knowledge OS vault template from GitHub and I'm ready to co
 
 Here's what I need you to do:
 
-**Step 1 — Ask me questions.** You'll interview me across four areas. Ask them one area at a time, not all at once. Wait for my answers before moving to the next area.
+**Step 1 — Ask me questions.** You'll interview me across four areas. Ask one question at a time — never more than one per message. Wait for my answer before asking the next question. Move to the next area only once you have enough to proceed. For questions with a small set of common answers (employment type, communication style, portfolio type, check-in preference), offer 3–4 options and let me pick one or describe something else. For open-ended questions (goals, priorities, what a great month looks like), ask directly without options.
 
 **Step 2 — Generate my config files.** Once you have everything you need, generate and write the following files directly to the vault:
 - `Context/CONTEXT.md` — my identity, priorities, working style

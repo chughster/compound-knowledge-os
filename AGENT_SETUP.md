@@ -20,11 +20,22 @@ Ask me where I want to put the vault. Default suggestion: `~/Documents/Compound 
 
 **Step 3 — Download and install**
 
-Using bash:
-1. Download the ZIP from `https://github.com/chughster/compound-knowledge-os/archive/refs/heads/main.zip` and save it to a temporary location
-2. Unzip it — this will create a subfolder named `compound-knowledge-os-main/` containing the vault contents
-3. Move the **contents** of `compound-knowledge-os-main/` (not the wrapper folder itself) to the install location I specified in Step 2
-4. Confirm the folder exists and the key files are present (`FIRST_RUN.md`, `_system/project-instructions.md`, `Priorities/priorities.md`)
+Important: the sandbox has no internet access and Terminal blocks typing. Use the following approach instead:
+
+1. Build the install command by substituting `INSTALL_PATH` with the full absolute path I gave in Step 2. If the user confirmed the default, use `$HOME/Documents/Compound Vault` — do not use `~` as it won't expand inside quotes:
+```bash
+curl -L "https://github.com/chughster/compound-knowledge-os/archive/refs/heads/main.zip" -o /tmp/compound-vault.zip && \
+unzip -q /tmp/compound-vault.zip -d /tmp/ && \
+mkdir -p "INSTALL_PATH" && \
+cp -r /tmp/compound-knowledge-os-main/. "INSTALL_PATH"/ && \
+rm -rf /tmp/compound-vault.zip /tmp/compound-knowledge-os-main && \
+echo "Done"
+```
+2. Use the `write_clipboard` computer-use tool to copy the command to my clipboard
+3. Ask me to open Terminal and press **Cmd+V** (Mac) or **Ctrl+V** (Windows) to paste and run it
+4. Wait for me to confirm Terminal printed `Done`
+
+Then confirm the key files are present: `FIRST_RUN.md`, `_system/project-instructions.md`, `Priorities/priorities.md`.
 
 **Step 4 — Open in Obsidian (manual step)**
 
@@ -43,9 +54,11 @@ Tell me to do the following in Obsidian:
 1. Go to **Settings** (gear icon, bottom left)
 2. Click **Community Plugins**
 3. Click **Turn off Restricted Mode** and confirm
-4. The 4 required plugins (Tasks, Dataview, Templater, Homepage) will enable automatically
+4. The 4 required plugins (Tasks, Dataview, Templater, Homepage) should enable automatically
 
-Ask me to confirm this is done before continuing.
+If any plugin shows an error or fails to enable: click the trash icon next to it to remove it, then click **Browse**, search for the plugin by name, reinstall it, and enable it.
+
+Ask me to confirm all 4 plugins are enabled before continuing.
 
 **Step 5b — Install Web Clipper (manual step)**
 
@@ -54,10 +67,12 @@ Tell me to install [Obsidian Web Clipper](https://obsidian.md/clipper) — a fre
 **Step 6 — Configure Claude Cowork project**
 
 Tell me to do the following:
-1. In this Cowork session, go to **Project Settings**
-2. Open the file `_system/project-instructions.md` from my vault
-3. Copy the full contents and paste them into the **Custom Instructions** field
-4. Save
+1. Open Finder (Mac) or File Explorer (Windows), navigate to the vault install location, and open `_system/project-instructions.md` in any text editor (TextEdit, Notepad, VS Code)
+2. Select all and copy the full contents
+3. In this Cowork session, look for the **Instructions** field — it appears at the top of the project sidebar or in the project settings panel (not in the chat)
+4. Paste the copied text into the **Instructions** field and save
+
+Important: paste into the Instructions field, not into the chat.
 
 Explain that this is the one step that cannot be automated — it wires Claude to the vault.
 

@@ -33,8 +33,9 @@ Have Claude handle the download, setup, and first-run configuration automaticall
 1. Install [Obsidian](https://obsidian.md/download) and [Claude Cowork](https://claude.ai/referral/YU4FcS6hQQ) if you haven't already
 2. Open Claude Cowork and create a new project (top left, + New Project)
 3. Open [AGENT_SETUP.md](AGENT_SETUP.md), copy the prompt, and paste it into the chat of that new project
-4. Claude downloads and installs the vault, then guides you through 3 short manual steps: open the vault in Obsidian, enable plugins, and paste the project instructions into Cowork
-5. Claude runs the first-run interview and configures the system for your life
+4. Claude will request access to Terminal and Obsidian during installation — approve both when prompted
+5. Claude downloads and installs the vault, then guides you through 3 short manual steps: open the vault in Obsidian, enable plugins, and paste the project instructions into Cowork
+6. Claude runs the first-run interview and configures the system for your life
 
 ---
 
@@ -55,7 +56,7 @@ Have Claude handle the download, setup, and first-run configuration automaticall
 
    Also install [Obsidian Web Clipper](https://obsidian.md/clipper) - one-click capture from any webpage or YouTube video.
 
-4. Open the **Claude Cowork desktop app** and create a new project. In Obsidian, open `_system/project-instructions.md`, copy the full contents, and paste into the **Custom Instructions** field in Cowork. Save.
+4. Open the **Claude Cowork desktop app** and create a new project. Open `_system/project-instructions.md` from your vault folder in any text editor, copy the full contents, and paste into the **Instructions** field in Cowork. Save.
 
 5. Open `FIRST_RUN.md` and follow the steps. Claude interviews you and configures the whole system for your life in one session.
 
