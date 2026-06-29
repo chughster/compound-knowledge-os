@@ -26,12 +26,26 @@ You tell Claude your goals. It breaks them into a prioritised task list tracked 
 
 ## Getting Started
 
+**Option 1 - Install with Claude Cowork (recommended)**
+
+Have Claude handle the download, setup, and first-run configuration automatically.
+
+1. Install [Obsidian](https://obsidian.md/download) and [Claude Cowork](https://claude.ai/referral/YU4FcS6hQQ) if you haven't already
+2. Open Claude Cowork and create a new project (top left, + New Project)
+3. Open [AGENT_SETUP.md](AGENT_SETUP.md), copy the prompt, and paste it into the chat of that new project
+4. Claude downloads and installs the vault, then guides you through 3 short manual steps: open the vault in Obsidian, enable plugins, and paste the project instructions into Cowork
+5. Claude runs the first-run interview and configures the system for your life
+
+---
+
+**Option 2 - Manual install**
+
 **What you need:**
 - [Obsidian](https://obsidian.md/download) - a free note-taking app (Mac, Windows, Linux, iOS, Android)
 - [Claude Cowork](https://claude.ai/referral/YU4FcS6hQQ) - Claude Pro desktop app
 - iCloud - optional, only needed for mobile sync
 
-**Setup (15 minutes):**
+**Setup:**
 
 1. Download the vault: click the green **Code** button on this page, then **Download ZIP**. Unzip to a permanent location on your computer.
 
@@ -47,7 +61,7 @@ You tell Claude your goals. It breaks them into a prioritised task list tracked 
 
 **[Open FIRST_RUN.md to begin →](FIRST_RUN.md)**
 
-**Optional:** [Readwise](https://readwise.io) ($9.99/month) syncs Kindle highlights directly into your vault. Free alternative: export via [Amazon's notebook](https://read.amazon.com/kp/notebook) and paste manually.
+**Optional:** [Readwise](https://readwise.io) (paid, check current pricing) syncs Kindle highlights directly into your vault. Free alternative: export via [Amazon's notebook](https://read.amazon.com/kp/notebook) and paste manually.
 
 ---
 
